@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="为了加速神经网络的训练，使用CPU训练速度很慢，所以使用cuda和cudnn对神经网络进行加速，在配置的过程中你会遇到很多坑，各种坑，网上也有很多教程但是实现起来各种ERROR，真心觉得累，经过多次实验做如下总结。  本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶">
+<meta name="keywords" content="深度学习环境搭建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习GPU环境搭建">
+<meta property="og:url" content="http://yoursite.com/2019/08/26/深度学习GPU环境搭建/index.html">
+<meta property="og:site_name" content="王雨的博客">
+<meta property="og:description" content="为了加速神经网络的训练，使用CPU训练速度很慢，所以使用cuda和cudnn对神经网络进行加速，在配置的过程中你会遇到很多坑，各种坑，网上也有很多教程但是实现起来各种ERROR，真心觉得累，经过多次实验做如下总结。  本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-26T02:48:05.117Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习GPU环境搭建">
+<meta name="twitter:description" content="为了加速神经网络的训练，使用CPU训练速度很慢，所以使用cuda和cudnn对神经网络进行加速，在配置的过程中你会遇到很多坑，各种坑，网上也有很多教程但是实现起来各种ERROR，真心觉得累，经过多次实验做如下总结。  本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶">
+  <link rel="canonical" href="http://yoursite.com/2019/08/26/深度学习GPU环境搭建/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>深度学习GPU环境搭建 | 王雨的博客</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <a href="https://github.com/xiaoyufenfei" 
+    class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" 
+    style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" 
+    style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover 
+    .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes 
+    octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover 
+    .octo-arm{animation:none}.github-corner 
+    .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王雨的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">SmileYu</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/26/深度学习GPU环境搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="胜日寻芳泗水滨，无边光景一时新。">
+      <meta itemprop="image" content="/uploads/graduate.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王雨的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">深度学习GPU环境搭建
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-26 08:29:50 / 修改时间：10:48:05" itemprop="dateCreated datePublished" datetime="2019-08-26T08:29:50+08:00">2019-08-26</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习环境搭建/" itemprop="url" rel="index"><span itemprop="name">深度学习环境搭建</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>为了加速神经网络的训练，使用CPU训练速度很慢，所以使用cuda和cudnn对神经网络进行加速，在配置的过程中你会遇到很多坑，各种坑，网上也有很多教程但是实现起来各种ERROR，真心觉得累，经过多次实验做如下总结。</p>
+</blockquote>
+<h4 id="本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶"><a href="#本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶" class="headerlink" title="本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶"></a>本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶</h4><a id="more"></a> 
+
+<h4 id="Python-3-6"><a href="#Python-3-6" class="headerlink" title="Python 3.6"></a>Python 3.6</h4><p>首先安装 Python 3.6，这里使用 Anaconda 3 来安装，下载地址：<a href="https://www.anaconda.com/download/#linux，点击" target="_blank" rel="noopener">https://www.anaconda.com/download/#linux，点击</a> Download 按钮下载即可，这里下载的是 Anaconda 3-5.1 版本，如果下载速度过慢,强烈建议选择使用<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/" target="_blank" rel="noopener">清华镜像</a> 。</p>
+<p>下载下来之后目录下会出现一个 Anaconda3-5.1.0-Linux-x86_64.sh 文件，然后直接执行即可安装：</p>
+<pre><code>bash Anaconda3-5.1.0-Linux-x86_64.sh</code></pre><p>执行完毕之后按照默认设置走下来即可完成安装。</p>
+<p>这里默认它会安装到用户目录下，如果想全局安装，可以在这一步输入你要安装的地址：</p>
+<pre><code>Anaconda3 will now be installed into this location:
+/home/wy/anaconda3
+
+  - Press ENTER to confirm the location
+  - Press CTRL-C to abort the installation
+  - Or specify a different location below
+
+[/home/wy/anaconda3] &gt;&gt;&gt; /usr/local/anaconda3
+PREFIX=/usr/local/anaconda3</code></pre><p>这里我指定了将其安装到 /usr/local/anaconda3 目录下，全局安装，所有用户共享，当然如果只想本用户使用的话使用默认配置即可。</p>
+<p>安装完成之后添加 python3 和 pip3 的软链接：</p>
+<pre><code>sudo ln -s /usr/local/anaconda3/bin/python3 /usr/local/sbin/python3
+sudo ln -s /usr/local/anaconda3/bin/pip /usr/local/sbin/pip3</code></pre><p>这里是将软连接其添加到 /usr/local/sbin 目录下了，它默认会存在于环境变量中，因此可以直接调用。</p>
+<p>当然也可以选择把 /usr/local/anaconda3/bin 目录添加到环境变量中，可以修改 ~/.bashrc 文件，添加如下内容：</p>
+<pre><code>export PATH=/usr/local/anaconda3/bin${PATH:+:${PATH}}</code></pre><p>然后执行：</p>
+<pre><code>source ~/.bashrc</code></pre><p>即可生效，下次登录时也会默认执行 ~/.bashrc 文件，也会生效。</p>
+<p>接下来我们验证下 python3、pip3 命令是否都来自 Anaconda，命令如下：</p>
+<pre><code>pip3 -V
+pip 9.0.1 from /usr/local/anaconda3/lib/python3.6/site-packages (python 3.6)</code></pre><pre><code>which python3
+/usr/local/anaconda3/bin/python3
+python3
+Python 3.6.4 |Anaconda, Inc.| (default, Jan 16 2018, 18:10:19) 
+[GCC 7.2.0] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;</code></pre><p>如果输入 pip3 和 python3 命令能出现如上类似结果，路径都在 /usr/local/anaconda3，就证明 Python 3 安装成功了。</p>
+<h4 id="安装驱动"><a href="#安装驱动" class="headerlink" title="安装驱动"></a>安装驱动</h4><p>首先查看一下自己的电脑需要怎样的驱动，我们可以先到 <a href="http://www.nvidia.com/Download/index.aspx" target="_blank" rel="noopener">http://www.nvidia.com/Download/index.aspx</a> 查询下我们需要的是怎样的驱动，这里我的显卡是 GTX 1080，所以以此为例说明，勾选好对应的配置：</p>
+<p>点击 Search，可以看到查询结果如下所示：</p>
+<pre><code>Version:    390.25
+Release Date:    2018.1.29
+Operating System:    Linux 64-bit
+Language:    English (US)
+File Size:    77.48 MB</code></pre><p>这里说明我们需要的版本是 <code>390.25</code>。</p>
+<p>接下来如果我们之前安装了驱动的话，可以重新安装一下，如果当前已经安装好了就不必了。</p>
+<p>如果要重装，需要首先卸载掉之前的显卡驱动:</p>
+<pre><code>sudo apt-get remove –purge nvidia*</code></pre><p>运行之后 NVIDIA 的一些驱动就被卸载了。</p>
+<p>这时候 nvidia-smi 等命令已经不能用了，这就证明显卡驱动已经被卸载了。</p>
+<p>然后接下来添加一个 PPA 源，命令如下：</p>
+<pre><code>sudo add-apt-repository ppa:graphics-drivers/ppa</code></pre><p>然后更新一下：</p>
+<pre><code>sudo apt-get update</code></pre><p>随后重新安装显卡驱动：</p>
+<pre><code>sudo apt-get install nvidia-390</code></pre><p>注意这里的 <code>390</code> 就是刚才我们查询出来的版本，以实际查询出来的版本为准。</p>
+<h4 id="CUDA-9-0"><a href="#CUDA-9-0" class="headerlink" title="CUDA 9.0"></a>CUDA 9.0</h4><p>如果存在之前的旧版本，可以选择先卸载，以免和新的 CUDA 版本产生冲突，在 /usr/local/cuda/bin 目录下有一个 uninstallcuda*.pl 文件，可以直接运行卸载，命令如下：</p>
+<pre><code>sudo ./uninstall_cuda_*.pl</code></pre><p>这样即可将 CUDA 全部卸载。</p>
+<p>接下来我们再下载 CUDA 9.0，注意 TensorFlow 1.5 和 1.6 版本依然只是兼容 CUDA 9.0，没有兼容 CUDA 9.1，所以不要下载 9.1，CUDA 9.0 的下载地址是：<a href="https://developer.nvidia.com/cuda-90-download-archive，然后依次勾选好系统的版本" target="_blank" rel="noopener">https://developer.nvidia.com/cuda-90-download-archive，然后依次勾选好系统的版本</a>.</p>
+<p>这里我们选择 Linux-x86_64-Ubuntu-16.04-runfile 的配置，然后点击 Base Installer 部分的 Download 按钮，下载 CUDA 9.0 安装包。</p>
+<p>对应的下载命令是：</p>
+<pre><code>wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run</code></pre><p>执行此命令，等待下载完成即可。</p>
+<p>接下来执行安装，运行如下命令：</p>
+<pre><code>sudo bash cuda_9.0.176_384.81_linux-run</code></pre><p>安装过程需要输入一些确认选项，过程如下：</p>
+<pre><code>Description
+
+The NVIDIA CUDA Toolkit provides command-line and graphical
+tools for building, debugging and optimizing the performance
+Do you accept the previously read EULA?
+accept/decline/quit: accept
+
+Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 384.81?
+(y)es/(n)o/(q)uit: n
+
+Install the CUDA 9.0 Toolkit?
+(y)es/(n)o/(q)uit: y
+
+Enter Toolkit Location
+ [ default is /usr/local/cuda-9.0 ]: 
+
+Do you want to install a symbolic link at /usr/local/cuda?
+(y)es/(n)o/(q)uit: y
+
+Install the CUDA 9.0 Samples?
+(y)es/(n)o/(q)uit: y
+
+Enter CUDA Samples Location
+ [ default is /home/cqc ]: 
+
+Installing the CUDA Toolkit in /usr/local/cuda-9.0 ...</code></pre><p>最后如果出现这样的提示，就证明 CUDA 安装好了：</p>
+<pre><code>Driver:   Not Selected
+Toolkit:  Installed in /usr/local/cuda-9.0
+Samples:  Installed in /home/cqc, but missing recommended libraries
+
+Please make sure that
+ -   PATH includes /usr/local/cuda-9.0/bin
+ -   LD_LIBRARY_PATH includes /usr/local/cuda-9.0/lib64, or, add /usr/local/cuda-9.0/lib64 to /etc/ld.so.conf and run ldconfig as root
+
+To uninstall the CUDA Toolkit, run the uninstall script in /usr/local/cuda-9.0/bin
+
+Please see CUDA_Installation_Guide_Linux.pdf in /usr/local/cuda-9.0/doc/pdf for detailed information on setting up CUDA.
+
+***WARNING: Incomplete installation! This installation did not install the CUDA Driver. A driver of version at least 384.00 is required for CUDA 9.0 functionality to work.
+To install the driver using this installer, run the following command, replacing &lt;CudaInstaller&gt; with the name of this run file:
+    sudo &lt;CudaInstaller&gt;.run -silent -driver</code></pre><p>然后我们需要配置一下环境变量，更改 ~/.bashrc 文件，添加如下几行：</p>
+<pre><code>export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export CUDA_HOME=/usr/local/cuda</code></pre><p>修改完毕之后执行一下使其生效：</p>
+<pre><code>source ~/.bashrc</code></pre><p>这时我们输出 CUDA_HOME、LD_LIBRARY_PATH 就可以看到对应的输出了：</p>
+<pre><code>echo $CUDA_HOME
+/usr/local/cuda
+echo $LD_LIBRARY_PATH
+/usr/local/cuda/lib64</code></pre><pre><code>nvcc -V</code></pre><p>或者：</p>
+<pre><code>nvidia-smi</code></pre><p>这样就代表环境变量生效了，CUDA 安装完成。</p>
+<h4 id="cuDNN-7-1"><a href="#cuDNN-7-1" class="headerlink" title="cuDNN 7.1"></a>cuDNN 7.1</h4><p>cuDNN 的全称是 The NVIDIA CUDA® Deep Neural Network library，是专门用来对深度学习加速的库，它支持 Caffe2, MATLAB, Microsoft Cognitive Toolkit, TensorFlow, Theano 及 PyTorch 等深度学习的加速优化，目前最新版本是 cuDNN 7.1，接下来我们来看下它的安装方式。</p>
+<p>下载链接：<a href="https://developer.nvidia.com/rdp/cudnn-download，或者" target="_blank" rel="noopener">https://developer.nvidia.com/rdp/cudnn-download，或者</a> <a href="http://iphil.cc/?p=541" target="_blank" rel="noopener">cuDNN Download</a>   需要注册之后才能打开，这里我们选择 cuDNN v7.1.1 (Feb 28, 2018), for CUDA 9.0，然后选择 cuDNN v7.1.1 Library for Linux：</p>
+<p>下载下来之后解压安装即可：</p>
+<pre><code>tar -zxvf cudnn-9.0-linux-x64-v7.1.tgz
+sudo cp cuda/include/cudnn.h /usr/local/cuda/include/
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/ -d
+sudo chmod a+r /usr/local/cuda/include/cudnn.h
+sudo chmod a+r /usr/local/cuda/lib64/libcudnn*</code></pre><p>执行完如上命令之后，cuDNN 就安装好了，这时我们可以发现在 /usr/local/cuda/include 目录下就多了 cudnn.h 头文件。</p>
+<h4 id="ubuntu16-04查看CUDA和cuDNN版本"><a href="#ubuntu16-04查看CUDA和cuDNN版本" class="headerlink" title="ubuntu16.04查看CUDA和cuDNN版本"></a>ubuntu16.04查看CUDA和cuDNN版本</h4><p>cuda版本查看:</p>
+<pre><code>cat /usr/local/cuda/version.txt</code></pre><p>cudnn版本查看:</p>
+<pre><code>cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2</code></pre><h4 id="TensorFlow-1-8"><a href="#TensorFlow-1-8" class="headerlink" title="TensorFlow 1.8"></a>TensorFlow 1.8</h4><p>到现在为止 Python 3.6、CUDA 9.0 和 cuDNN 7.1 就已经安装好了，而且环境变量也配置好了，接下来我们直接安装 TensorFlow 1.8 即可，TensorFlow 1.8 版本针对 CUDA 9 和 cuDNN 7 做了优化，可以预构建二进制文件。</p>
+<p>这里需要安装的是 TensorFlow 的 GPU 版本，命令如下：</p>
+<pre><code>pip3 install tensorflow-gpu==1.8.0</code></pre><p>你会发现上面安装特别慢，强烈建议使用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
+<pre><code>pip3 install tensorflow-gpu==1.8.0 -i https://pypi.tuna.tsinghua.edu.cn/simple</code></pre><p>安装完成之后验证一下：</p>
+<pre><code>python
+import tensorflow as tf
+tf.__version__
+tf.__path__</code></pre><p>如果没有报错，那就证明全部环境配置都成功了。</p>
+<p>如果您的tensorflow安装后不能使用，请考虑tensorflow版本和CUDA、cuDNN版本的兼容问题，请自行百度。</p>
+<h4 id="Pytorch-1-1"><a href="#Pytorch-1-1" class="headerlink" title="Pytorch 1.1"></a>Pytorch 1.1</h4><p>pytorch官网：<a href="https://pytorch.org/" target="_blank" rel="noopener">https://pytorch.org/</a> </p>
+<p>打开官网，可以按照选择安装方式（pip , conda, source）和 python版本，cuda版本来进行安装，由于特殊的网络国情，一般是打不开，或者是无法查看 run the command 之后的指令的。</p>
+<p>你会发现上面安装特别慢，强烈建议使用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
+<pre><code>pip3 install torch==1.1.0 torchvision==0.3.0 -i https://pypi.tuna.tsinghua.edu.cn/simple</code></pre><p><a href="https://www.pytorchtutorial.com/pytorch-installation-commands/" target="_blank" rel="noopener">安装pytorch命令合集</a>.</p>
+<h4 id="配置-ssh-远程连接"><a href="#配置-ssh-远程连接" class="headerlink" title="配置 ssh 远程连接"></a>配置 ssh 远程连接</h4><p>1）安装 open-ssh</p>
+<pre><code>apt-get install openssh-server</code></pre><p>2）修改权限，允许 ssh 登录 root</p>
+<pre><code>gedit /etc/ssh/sshd_config</code></pre><p>注释 ：<code>PermitRootLogin prohibit-password</code><br>添加： <code>PermitRootLogin yes</code></p>
+<p>3）重启 ssh</p>
+<pre><code>service ssh restart</code></pre><h4 id="设置Ubuntu-16-04-允许进行远程控制"><a href="#设置Ubuntu-16-04-允许进行远程控制" class="headerlink" title="设置Ubuntu 16.04 允许进行远程控制"></a>设置Ubuntu 16.04 允许进行远程控制</h4><p>请参考 <a href="https://www.cnblogs.com/xuliangxing/p/7642650.html" target="_blank" rel="noopener">VNC实现Windows远程访问Ubuntu 16.04（无需安装第三方桌面,直接使用自带远程工具）</a> .</p>
+<h4 id="No-module-named-‘cv2’等python库解决方法"><a href="#No-module-named-‘cv2’等python库解决方法" class="headerlink" title="No module named ‘cv2’等python库解决方法"></a>No module named ‘cv2’等python库解决方法</h4><p>只要是缺少的python库文件，请善用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
+<pre><code>pip3 install opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple</code></pre><h4 id="Python包更新方法"><a href="#Python包更新方法" class="headerlink" title="Python包更新方法"></a>Python包更新方法</h4><p>当你需要更新python包时，还是那句话，请善用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
+<p>如：我当前需要更新pip</p>
+<pre><code>pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple</code></pre><h4 id="Ubuntu下Pycharm编辑器的安装"><a href="#Ubuntu下Pycharm编辑器的安装" class="headerlink" title="Ubuntu下Pycharm编辑器的安装"></a>Ubuntu下Pycharm编辑器的安装</h4><p>请自行百度，可参考 <a href="https://blog.csdn.net/CAU_Ayao/article/details/80578600" target="_blank" rel="noopener">https://blog.csdn.net/CAU_Ayao/article/details/80578600</a> 进行安装。</p>
+<p>以上便是 Ubuntu 16.04 + Nvidia GTX 1080 + Python 3.6 + CUDA 9.0 + cuDNN 7.1 + TensorFlow 1.8 + Pytorch 1.1 + ssh远程连接设置+ Ubunt桌面远程控制等 完整环境配置过程,  RTX 2080显卡的环境安装过程也可同作参考。</p>
+<h4 id="国内常见的pypi源"><a href="#国内常见的pypi源" class="headerlink" title="国内常见的pypi源"></a>国内常见的pypi源</h4><pre><code>清华：https://pypi.tuna.tsinghua.edu.cn/simple
+阿里云：http://mirrors.aliyun.com/pypi/simple/
+中国科技大学 https://pypi.mirrors.ustc.edu.cn/simple/
+华中理工大学：http://pypi.hustunique.com/
+山东理工大学：http://pypi.sdutlinux.org/ 
+豆瓣：http://pypi.douban.com/simple/</code></pre><h4 id="他山之石："><a href="#他山之石：" class="headerlink" title="他山之石："></a>他山之石：</h4><ul>
+<li><a href="https://blog.csdn.net/weixin_42718092/article/details/86016973" target="_blank" rel="noopener">Ubuntu下安装CUDA10.0遇到的问题（一定要注意自己版本）</a></li>
+<li><a href="https://blog.csdn.net/qq_27825451/article/details/89082978" target="_blank" rel="noopener">tensorflow各个版本的CUDA以及Cudnn版本对应关系</a></li>
+<li><a href="https://blog.csdn.net/omodao1/article/details/83241074" target="_blank" rel="noopener">Tensorflow不同版本要求与CUDA及CUDNN版本对应关系</a></li>
+<li><a href="https://blog.csdn.net/CYummy/article/details/88173161" target="_blank" rel="noopener">Ubuntu16.04　安装python3.6和相应的pip3  pytorch1.0</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/深度学习环境搭建/" rel="tag"># 深度学习环境搭建</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/08/24/hello-world/" rel="next" title="Hexo 博客搭建指南">
+                  <i class="fa fa-chevron-left"></i> Hexo 博客搭建指南
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶"><span class="nav-number">1.</span> <span class="nav-text">本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Python-3-6"><span class="nav-number">2.</span> <span class="nav-text">Python 3.6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装驱动"><span class="nav-number">3.</span> <span class="nav-text">安装驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CUDA-9-0"><span class="nav-number">4.</span> <span class="nav-text">CUDA 9.0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cuDNN-7-1"><span class="nav-number">5.</span> <span class="nav-text">cuDNN 7.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ubuntu16-04查看CUDA和cuDNN版本"><span class="nav-number">6.</span> <span class="nav-text">ubuntu16.04查看CUDA和cuDNN版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TensorFlow-1-8"><span class="nav-number">7.</span> <span class="nav-text">TensorFlow 1.8</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pytorch-1-1"><span class="nav-number">8.</span> <span class="nav-text">Pytorch 1.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-ssh-远程连接"><span class="nav-number">9.</span> <span class="nav-text">配置 ssh 远程连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置Ubuntu-16-04-允许进行远程控制"><span class="nav-number">10.</span> <span class="nav-text">设置Ubuntu 16.04 允许进行远程控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#No-module-named-‘cv2’等python库解决方法"><span class="nav-number">11.</span> <span class="nav-text">No module named ‘cv2’等python库解决方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Python包更新方法"><span class="nav-number">12.</span> <span class="nav-text">Python包更新方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ubuntu下Pycharm编辑器的安装"><span class="nav-number">13.</span> <span class="nav-text">Ubuntu下Pycharm编辑器的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#国内常见的pypi源"><span class="nav-number">14.</span> <span class="nav-text">国内常见的pypi源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#他山之石："><span class="nav-number">15.</span> <span class="nav-text">他山之石：</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/uploads/graduate.jpg"
+      alt="">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description motion-element" itemprop="description">胜日寻芳泗水滨，无边光景一时新。</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/xiaoyufenfei" title="GitHub &rarr; https://github.com/xiaoyufenfei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
