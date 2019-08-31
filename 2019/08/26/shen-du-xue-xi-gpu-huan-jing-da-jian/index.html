@@ -1,0 +1,1259 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="深度学习GPU环境搭建, NJUPT CV Deep-Learning WangYu">
+    <meta name="baidu-site-verification" content>
+    <meta name="google-site-verification" content>
+    <meta name="description" content="
+为了加速神经网络的训练，使用CPU训练速度很慢，所以使用cuda和cudnn对神经网络进行加速，在配置的过程中你会遇到很多坑，各种坑，网上也有很多教程但是实现起来各种ERROR，真心觉得累，经过多次实验做如下超全总结！！！
+
+本节详细说明">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>深度学习GPU环境搭建 | 王雨的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">王雨的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">王雨的博客</div>
+        <div class="logo-desc">
+            
+            胜日寻芳泗水滨，无边光景一时新。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/xiaoyufenfei" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/xiaoyufenfei" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        深度学习GPU环境搭建
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/深度学习环境搭建/" target="_blank">
+                                <span class="chip bg-color">深度学习环境搭建</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/深度学习环境搭建/" class="post-category" target="_blank">
+                                深度学习环境搭建
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-08-26
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    王雨
+                    
+                </div>
+
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        2.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        12 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>为了加速神经网络的训练，使用CPU训练速度很慢，所以使用cuda和cudnn对神经网络进行加速，在配置的过程中你会遇到很多坑，各种坑，网上也有很多教程但是实现起来各种ERROR，真心觉得累，经过多次实验做如下超全总结！！！</p>
+</blockquote>
+<h4 id="本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶"><a href="#本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶" class="headerlink" title="本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶"></a>本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶</h4><a id="more"></a> 
+
+<h4 id="Python-3-6"><a href="#Python-3-6" class="headerlink" title="Python 3.6"></a>Python 3.6</h4><p>首先安装 Python 3.6，这里使用 Anaconda 3 来安装，下载地址：<a href="https://www.anaconda.com/download/#linux，点击" target="_blank" rel="noopener">https://www.anaconda.com/download/#linux，点击</a> Download 按钮下载即可，这里下载的是 Anaconda 3-5.1 版本，如果下载速度过慢,强烈建议选择使用<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/" target="_blank" rel="noopener">清华镜像</a> 。</p>
+<p>下载下来之后目录下会出现一个 Anaconda3-5.1.0-Linux-x86_64.sh 文件，然后直接执行即可安装：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">bash</span> Anaconda3-5.1.0-Linux-x86_64.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>执行完毕之后按照默认设置走下来即可完成安装。</p>
+<p>这里默认它会安装到用户目录下，如果想全局安装，可以在这一步输入你要安装的地址：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">Anaconda3 will now be installed into this location:
+/home/wy/anaconda3
+
+  - Press ENTER to confirm the location
+  - Press CTRL-C to abort the installation
+  - Or specify a different location below
+
+<span class="token punctuation">[</span>/home/wy/anaconda3<span class="token punctuation">]</span> <span class="token operator">>></span><span class="token operator">></span> /usr/local/anaconda3
+PREFIX<span class="token operator">=</span>/usr/local/anaconda3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里我指定了将其安装到 /usr/local/anaconda3 目录下，全局安装，所有用户共享，当然如果只想本用户使用的话使用默认配置即可。</p>
+<p>安装完成之后添加 python3 和 pip3 的软链接：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">ln</span> -s /usr/local/anaconda3/bin/python3 /usr/local/sbin/python3
+<span class="token function">sudo</span> <span class="token function">ln</span> -s /usr/local/anaconda3/bin/pip /usr/local/sbin/pip3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这里是将软连接其添加到 /usr/local/sbin 目录下了，它默认会存在于环境变量中，因此可以直接调用。</p>
+<p>当然也可以选择把 /usr/local/anaconda3/bin 目录添加到环境变量中，可以修改 ~/.bashrc 文件，添加如下内容：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">export</span> PATH<span class="token operator">=</span>/usr/local/anaconda3/bin<span class="token variable">${PATH:+:${PATH}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后执行：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">source</span> ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>即可生效，下次登录时也会默认执行 ~/.bashrc 文件，也会生效。</p>
+<p>接下来我们验证下 python3、pip3 命令是否都来自 Anaconda，命令如下：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">pip3 -V
+pip 9.0.1 from /usr/local/anaconda3/lib/python3.6/site-packages <span class="token punctuation">(</span>python 3.6<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">which</span> python3
+/usr/local/anaconda3/bin/python3
+python3
+Python 3.6.4 <span class="token operator">|</span>Anaconda, Inc.<span class="token operator">|</span> <span class="token punctuation">(</span>default, Jan 16 2018, 18:10:19<span class="token punctuation">)</span> 
+<span class="token punctuation">[</span>GCC 7.2.0<span class="token punctuation">]</span> on linux
+Type <span class="token string">"help"</span>, <span class="token string">"copyright"</span>, <span class="token string">"credits"</span> or <span class="token string">"license"</span> <span class="token keyword">for</span> <span class="token function">more</span> information.
+<span class="token operator">>></span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果输入 pip3 和 python3 命令能出现如上类似结果，路径都在 /usr/local/anaconda3，就证明 Python 3 安装成功了。</p>
+<h4 id="安装驱动"><a href="#安装驱动" class="headerlink" title="安装驱动"></a>安装驱动</h4><p>首先查看一下自己的电脑需要怎样的驱动，我们可以先到 <a href="http://www.nvidia.com/Download/index.aspx" target="_blank" rel="noopener">http://www.nvidia.com/Download/index.aspx</a> 查询下我们需要的是怎样的驱动，这里我的显卡是 GTX 1080，所以以此为例说明，勾选好对应的配置：</p>
+<p>点击 Search，可以看到查询结果如下所示：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">Version:    390.25
+Release Date:    2018.1.29
+Operating System:    Linux 64-bit
+Language:    English <span class="token punctuation">(</span>US<span class="token punctuation">)</span>
+File Size:    77.48 MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里说明我们需要的版本是 <code>390.25</code>。</p>
+<p>接下来如果我们之前安装了驱动的话，可以重新安装一下，如果当前已经安装好了就不必了。</p>
+<p>如果要重装，需要首先卸载掉之前的显卡驱动:</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> remove –purge nvidia*<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>运行之后 NVIDIA 的一些驱动就被卸载了。</p>
+<p>这时候 nvidia-smi 等命令已经不能用了，这就证明显卡驱动已经被卸载了。</p>
+<p>然后接下来添加一个 PPA 源，命令如下：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> add-apt-repository ppa:graphics-drivers/ppa<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后更新一下：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>随后重新安装显卡驱动：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nvidia-390<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>注意这里的 <code>390</code> 就是刚才我们查询出来的版本，以实际查询出来的版本为准。</p>
+<h4 id="CUDA-9-0"><a href="#CUDA-9-0" class="headerlink" title="CUDA 9.0"></a>CUDA 9.0</h4><p>如果存在之前的旧版本，可以选择先卸载，以免和新的 CUDA 版本产生冲突，在 /usr/local/cuda/bin 目录下有一个 uninstallcuda*.pl 文件，可以直接运行卸载，命令如下：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> ./uninstall_cuda_*.pl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这样即可将 CUDA 全部卸载。</p>
+<p>接下来我们再下载 CUDA 9.0，注意 TensorFlow 1.5 和 1.6 版本依然只是兼容 CUDA 9.0，没有兼容 CUDA 9.1，所以不要下载 9.1，CUDA 9.0 的下载地址是：<a href="https://developer.nvidia.com/cuda-90-download-archive，然后依次勾选好系统的版本" target="_blank" rel="noopener">https://developer.nvidia.com/cuda-90-download-archive，然后依次勾选好系统的版本</a>.</p>
+<p>这里我们选择 Linux-x86_64-Ubuntu-16.04-runfile 的配置，然后点击 Base Installer 部分的 Download 按钮，下载 CUDA 9.0 安装包。</p>
+<p>对应的下载命令是：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">wget</span> https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>执行此命令，等待下载完成即可。</p>
+<p>接下来执行安装，运行如下命令：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">bash</span> cuda_9.0.176_384.81_linux-run<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>安装过程需要输入一些确认选项，过程如下：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">Description
+
+The NVIDIA CUDA Toolkit provides command-line and graphical
+tools <span class="token keyword">for</span> building, debugging and optimizing the performance
+Do you accept the previously <span class="token function">read</span> EULA?
+accept/decline/quit: accept
+
+Install NVIDIA Accelerated Graphics Driver <span class="token keyword">for</span> Linux-x86_64 384.81?
+<span class="token punctuation">(</span>y<span class="token punctuation">)</span>es/<span class="token punctuation">(</span>n<span class="token punctuation">)</span>o/<span class="token punctuation">(</span>q<span class="token punctuation">)</span>uit: n
+
+Install the CUDA 9.0 Toolkit?
+<span class="token punctuation">(</span>y<span class="token punctuation">)</span>es/<span class="token punctuation">(</span>n<span class="token punctuation">)</span>o/<span class="token punctuation">(</span>q<span class="token punctuation">)</span>uit: y
+
+Enter Toolkit Location
+ <span class="token punctuation">[</span> default is /usr/local/cuda-9.0 <span class="token punctuation">]</span>: 
+
+Do you want to <span class="token function">install</span> a symbolic <span class="token function">link</span> at /usr/local/cuda?
+<span class="token punctuation">(</span>y<span class="token punctuation">)</span>es/<span class="token punctuation">(</span>n<span class="token punctuation">)</span>o/<span class="token punctuation">(</span>q<span class="token punctuation">)</span>uit: y
+
+Install the CUDA 9.0 Samples?
+<span class="token punctuation">(</span>y<span class="token punctuation">)</span>es/<span class="token punctuation">(</span>n<span class="token punctuation">)</span>o/<span class="token punctuation">(</span>q<span class="token punctuation">)</span>uit: y
+
+Enter CUDA Samples Location
+ <span class="token punctuation">[</span> default is /home/cqc <span class="token punctuation">]</span>: 
+
+Installing the CUDA Toolkit <span class="token keyword">in</span> /usr/local/cuda-9.0 <span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后如果出现这样的提示，就证明 CUDA 安装好了：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">Driver:   Not Selected
+Toolkit:  Installed <span class="token keyword">in</span> /usr/local/cuda-9.0
+Samples:  Installed <span class="token keyword">in</span> /home/cqc, but missing recommended libraries
+
+Please <span class="token function">make</span> sure that
+ -   PATH includes /usr/local/cuda-9.0/bin
+ -   LD_LIBRARY_PATH includes /usr/local/cuda-9.0/lib64, or, add /usr/local/cuda-9.0/lib64 to /etc/ld.so.conf and run ldconfig as root
+
+To uninstall the CUDA Toolkit, run the uninstall script <span class="token keyword">in</span> /usr/local/cuda-9.0/bin
+
+Please see CUDA_Installation_Guide_Linux.pdf <span class="token keyword">in</span> /usr/local/cuda-9.0/doc/pdf <span class="token keyword">for</span> detailed information on setting up CUDA.
+
+***WARNING: Incomplete installation<span class="token operator">!</span> This installation did not <span class="token function">install</span> the CUDA Driver. A driver of version at least 384.00 is required <span class="token keyword">for</span> CUDA 9.0 functionality to work.
+To <span class="token function">install</span> the driver using this installer, run the following command, replacing <span class="token operator">&lt;</span>CudaInstaller<span class="token operator">></span> with the name of this run file:
+    <span class="token function">sudo</span> <span class="token operator">&lt;</span>CudaInstaller<span class="token operator">></span>.run -silent -driver<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后我们需要配置一下环境变量，更改 ~/.bashrc 文件，添加如下几行：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">export</span> PATH<span class="token operator">=</span>/usr/local/cuda/bin<span class="token variable">${PATH:+:${PATH}</span><span class="token punctuation">}</span>
+<span class="token function">export</span> LD_LIBRARY_PATH<span class="token operator">=</span>/usr/local/cuda/lib64<span class="token variable">${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}</span><span class="token punctuation">}</span>
+<span class="token function">export</span> CUDA_HOME<span class="token operator">=</span>/usr/local/cuda<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>修改完毕之后执行一下使其生效：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">source</span> ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这时我们输出 CUDA_HOME、LD_LIBRARY_PATH 就可以看到对应的输出了：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token keyword">echo</span> <span class="token variable">$CUDA_HOME</span>
+/usr/local/cuda
+<span class="token keyword">echo</span> <span class="token variable">$LD_LIBRARY_PATH</span>
+/usr/local/cuda/lib64<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">nvcc -V<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>或者：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">nvidia-smi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这样就代表环境变量生效了，CUDA 安装完成。</p>
+<h4 id="cuDNN-7-1"><a href="#cuDNN-7-1" class="headerlink" title="cuDNN 7.1"></a>cuDNN 7.1</h4><p>cuDNN 的全称是 The NVIDIA CUDA® Deep Neural Network library，是专门用来对深度学习加速的库，它支持 Caffe2, MATLAB, Microsoft Cognitive Toolkit, TensorFlow, Theano 及 PyTorch 等深度学习的加速优化，目前最新版本是 cuDNN 7.1，接下来我们来看下它的安装方式。</p>
+<p>下载链接：<a href="https://developer.nvidia.com/rdp/cudnn-download，或者" target="_blank" rel="noopener">https://developer.nvidia.com/rdp/cudnn-download，或者</a> <a href="http://iphil.cc/?p=541" target="_blank" rel="noopener">cuDNN Download</a>   需要注册之后才能打开，这里我们选择 cuDNN v7.1.1 (Feb 28, 2018), for CUDA 9.0，然后选择 cuDNN v7.1.1 Library for Linux：</p>
+<p>下载下来之后解压安装即可：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">tar</span> -zxvf cudnn-9.0-linux-x64-v7.1.tgz
+<span class="token function">sudo</span> <span class="token function">cp</span> cuda/include/cudnn.h /usr/local/cuda/include/
+<span class="token function">sudo</span> <span class="token function">cp</span> cuda/lib64/libcudnn* /usr/local/cuda/lib64/ -d
+<span class="token function">sudo</span> <span class="token function">chmod</span> a+r /usr/local/cuda/include/cudnn.h
+<span class="token function">sudo</span> <span class="token function">chmod</span> a+r /usr/local/cuda/lib64/libcudnn*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行完如上命令之后，cuDNN 就安装好了，这时我们可以发现在 /usr/local/cuda/include 目录下就多了 cudnn.h 头文件。</p>
+<h4 id="ubuntu16-04查看CUDA和cuDNN版本"><a href="#ubuntu16-04查看CUDA和cuDNN版本" class="headerlink" title="ubuntu16.04查看CUDA和cuDNN版本"></a>ubuntu16.04查看CUDA和cuDNN版本</h4><p>cuda版本查看:</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /usr/local/cuda/version.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>cudnn版本查看:</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /usr/local/cuda/include/cudnn.h <span class="token operator">|</span> <span class="token function">grep</span> CUDNN_MAJOR -A 2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="TensorFlow-1-8"><a href="#TensorFlow-1-8" class="headerlink" title="TensorFlow 1.8"></a>TensorFlow 1.8</h4><p>到现在为止 Python 3.6、CUDA 9.0 和 cuDNN 7.1 就已经安装好了，而且环境变量也配置好了，接下来我们直接安装 TensorFlow 1.8 即可，TensorFlow 1.8 版本针对 CUDA 9 和 cuDNN 7 做了优化，可以预构建二进制文件。</p>
+<p>这里需要安装的是 TensorFlow 的 GPU 版本，命令如下：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> tensorflow-gpu<span class="token operator">==</span>1.8.0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>你会发现上面安装特别慢，强烈建议使用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
+<pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> tensorflow-gpu<span class="token operator">==</span>1.8.0 -i https://pypi.tuna.tsinghua.edu.cn/simple<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>安装完成之后验证一下：</p>
+<pre class="line-numbers language-python"><code class="language-python">python
+<span class="token keyword">import</span> tensorflow <span class="token keyword">as</span> tf
+tf<span class="token punctuation">.</span>__version__
+tf<span class="token punctuation">.</span>__path__<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果没有报错，那就证明全部环境配置都成功了。</p>
+<p>如果您的tensorflow安装后不能使用，请考虑tensorflow版本和CUDA、cuDNN版本的兼容问题，请自行百度。</p>
+<h4 id="Pytorch-1-1"><a href="#Pytorch-1-1" class="headerlink" title="Pytorch 1.1"></a>Pytorch 1.1</h4><p>pytorch官网：<a href="https://pytorch.org/" target="_blank" rel="noopener">https://pytorch.org/</a> </p>
+<p>打开官网，可以按照选择安装方式（pip , conda, source）和 python版本，cuda版本来进行安装，由于特殊的网络国情，一般是打不开，或者是无法查看 run the command 之后的指令的。</p>
+<p>你会发现上面安装特别慢，强烈建议使用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
+<pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> torch<span class="token operator">==</span>1.1.0 torchvision<span class="token operator">==</span>0.3.0 -i https://pypi.tuna.tsinghua.edu.cn/simple<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><a href="https://www.pytorchtutorial.com/pytorch-installation-commands/" target="_blank" rel="noopener">安装pytorch命令合集</a>.</p>
+<h4 id="配置-ssh-远程连接"><a href="#配置-ssh-远程连接" class="headerlink" title="配置 ssh 远程连接"></a>配置 ssh 远程连接</h4><p>1）安装 open-ssh</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">apt-get</span> <span class="token function">install</span> openssh-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>2）修改权限，允许 ssh 登录 root</p>
+<pre class="line-numbers language-bash"><code class="language-bash">gedit /etc/ssh/sshd_config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>注释 ：<code>PermitRootLogin prohibit-password</code><br>添加： <code>PermitRootLogin yes</code></p>
+<p>3）重启 ssh</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">service</span> <span class="token function">ssh</span> restart<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="设置Ubuntu-16-04-允许进行远程控制"><a href="#设置Ubuntu-16-04-允许进行远程控制" class="headerlink" title="设置Ubuntu 16.04 允许进行远程控制"></a>设置Ubuntu 16.04 允许进行远程控制</h4><p>请参考 <a href="https://www.cnblogs.com/xuliangxing/p/7642650.html" target="_blank" rel="noopener">VNC实现Windows远程访问Ubuntu 16.04（无需安装第三方桌面,直接使用自带远程工具）</a> .</p>
+<h4 id="Windows全能终端神器MobaXterm安装"><a href="#Windows全能终端神器MobaXterm安装" class="headerlink" title="Windows全能终端神器MobaXterm安装"></a>Windows全能终端神器MobaXterm安装</h4><p><a href="https://mobaxterm.mobatek.net/" target="_blank" rel="noopener">主要功能</a>：</p>
+<blockquote>
+<p>支持各种连接SSH，X11，RDP，VNC，FTP，MOSH<br>支持Unix命令（bash，ls，cat，sed，grep，awk，rsync，…）<br>连接SSH终端后支持SFTP传输文件<br>各种丰富的插件（git/dig/aria2…）<br>可运行Windows或软件</p>
+</blockquote>
+<p><a href="https://mobaxterm.mobatek.net/download-home-edition.html" target="_blank" rel="noopener">官网下载地址</a> </p>
+<h4 id="No-module-named-‘cv2’等python库解决方法"><a href="#No-module-named-‘cv2’等python库解决方法" class="headerlink" title="No module named ‘cv2’等python库解决方法"></a>No module named ‘cv2’等python库解决方法</h4><p>只要是缺少的python库文件，请善用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
+<pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="Python包更新方法"><a href="#Python包更新方法" class="headerlink" title="Python包更新方法"></a>Python包更新方法</h4><p>当你需要更新python包时，还是那句话，请善用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
+<p>如：我当前需要更新pip</p>
+<pre class="line-numbers language-bash"><code class="language-bash">pip <span class="token function">install</span> --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="Ubuntu下python开发IDE专业版Pycharm的安装"><a href="#Ubuntu下python开发IDE专业版Pycharm的安装" class="headerlink" title="Ubuntu下python开发IDE专业版Pycharm的安装"></a>Ubuntu下python开发IDE专业版Pycharm的安装</h4><p>请自行百度，可参考 <a href="https://blog.csdn.net/CAU_Ayao/article/details/80578600" target="_blank" rel="noopener">https://blog.csdn.net/CAU_Ayao/article/details/80578600</a> 进行安装。</p>
+<h4 id="Ubuntu下Markdown编辑器Typora的安装"><a href="#Ubuntu下Markdown编辑器Typora的安装" class="headerlink" title="Ubuntu下Markdown编辑器Typora的安装"></a>Ubuntu下Markdown编辑器Typora的安装</h4><blockquote>
+<p>一个优雅的markdown编辑器，支持mac，windows，linux全平台，是一款<strong>支持实时预览的 Markdown 文本编辑器 ，完全免费</strong>。</p>
+</blockquote>
+<p><a href="https://www.typora.io/" target="_blank" rel="noopener">官方下载地址</a>     |         <a href="https://blog.csdn.net/cris_zz/article/details/82919401" target="_blank" rel="noopener">史上最完美的 Typora 教程</a></p>
+<h4 id="TeamViewer-远程控制桌面工具安装"><a href="#TeamViewer-远程控制桌面工具安装" class="headerlink" title="TeamViewer 远程控制桌面工具安装"></a>TeamViewer 远程控制桌面工具安装</h4><p><a href="https://www.teamviewer.cn/cn/" target="_blank" rel="noopener">TeamViewer</a>主要是用来连实验室的电脑，也可以用用 <a href="https://anydesk.com/zhs" target="_blank" rel="noopener">AnyDesk</a>, 两个都是全平台的.</p>
+<p>以上便是 <code>Ubuntu 16.04 + Nvidia GTX 1080 + Python 3.6 + CUDA 9.0 + cuDNN 7.1 + TensorFlow 1.8 + Pytorch 1.1 + ssh远程连接设置+ Ubunt桌面远程控制</code>等 完整环境配置过程,  <strong>RTX 2080</strong>显卡的环境安装过程也可同作参考。</p>
+<h4 id="国内常见的pypi源"><a href="#国内常见的pypi源" class="headerlink" title="国内常见的pypi源"></a>国内常见的pypi源</h4><pre><code>清华：https://pypi.tuna.tsinghua.edu.cn/simple
+阿里云：http://mirrors.aliyun.com/pypi/simple/
+中国科技大学 https://pypi.mirrors.ustc.edu.cn/simple/
+华中理工大学：http://pypi.hustunique.com/
+山东理工大学：http://pypi.sdutlinux.org/ 
+豆瓣：http://pypi.douban.com/simple/</code></pre><h4 id="他山之石："><a href="#他山之石：" class="headerlink" title="他山之石："></a>他山之石：</h4><ul>
+<li><a href="https://blog.csdn.net/weixin_42718092/article/details/86016973" target="_blank" rel="noopener">Ubuntu下安装CUDA10.0遇到的问题（一定要注意自己版本）</a></li>
+<li><a href="https://blog.csdn.net/qq_27825451/article/details/89082978" target="_blank" rel="noopener">tensorflow各个版本的CUDA以及Cudnn版本对应关系</a></li>
+<li><a href="https://blog.csdn.net/omodao1/article/details/83241074" target="_blank" rel="noopener">Tensorflow不同版本要求与CUDA及CUDNN版本对应关系</a></li>
+<li><a href="https://blog.csdn.net/CYummy/article/details/88173161" target="_blank" rel="noopener">Ubuntu16.04　安装python3.6和相应的pip3  pytorch1.0</a></li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力，客官能否打赏一杯奶茶？</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《深度学习GPU环境搭建》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/08/26/shen-du-xue-xi-gpu-huan-jing-da-jian/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                王雨
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '1c979df02e5ce28d8361',
+        clientSecret: '685b9629aa8d83a48346e4ab4292107db4cb6f0d',
+        repo: 'xiaoyufenfei.github.io',
+        owner: 'xiaoyufenfei',
+        admin: "xiaoyufenfei",
+        id: '2019-08-26T08-29-50',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/08/27/ke-yan-gong-ju/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="科研工具">
+                        
+                        <span class="card-title">科研工具</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Some tips for research and coding本博文正在丰富内容～～～😄
+1. 科研起步必读文章
+1.Karpathy-博士经验 (翻译) 重点
+2.陈天奇-科研十年
+3.王一-科研idea
+4.王赟-我的八年博士生涯
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-27
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/科研工具/" class="post-category" target="_blank">
+                                    科研工具
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/科研工具/" target="_blank">
+                        <span class="chip bg-color">科研工具</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/08/24/hello-world/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/47.jpg" class="responsive-img" alt="Hexo 博客搭建指南">
+                        
+                        <span class="card-title">Hexo 博客搭建指南</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/前端-创建博客/" class="post-category" target="_blank">
+                                    前端 - 创建博客
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/搭建博客/" target="_blank">
+                        <span class="chip bg-color">搭建博客</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 2019 WeiYang. All Rights Reserved.
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">5.7k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/xiaoyufenfei" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+
+    <a href="http://www.jianshu.com/u/8693dc359357" class="tooltipped" target="_blank" data-tooltip="访问我的简书" data-position="top" data-delay="50">
+        <i class="fa fa-book"></i>
+    </a>
+
+
+
+
+    <a href="mailto:wangy314159@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1274737326" class="tooltipped" data-tooltip="QQ联系我: 1274737326" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 80000;
+        var uvcountOffset = 20000;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2017, 09, 11, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '');
+</script>
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
