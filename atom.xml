@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xiaoyufenfei.github.io/"/>
-  <updated>2019-09-11T07:21:22.641Z</updated>
+  <updated>2019-09-11T07:33:48.177Z</updated>
   <id>http://xiaoyufenfei.github.io/</id>
   
   <author>
@@ -21,11 +21,13 @@
     <link href="http://xiaoyufenfei.github.io/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/"/>
     <id>http://xiaoyufenfei.github.io/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/</id>
     <published>2019-09-11T00:30:00.000Z</published>
-    <updated>2019-09-11T07:21:22.641Z</updated>
+    <updated>2019-09-11T07:33:48.177Z</updated>
     
     <summary type="html">
     
-      &lt;h4 id=&quot;本节详细说明一下最新GPU深度学习平台配置Ubuntu16-RTX2080Ti-CUDA10-Py36-Pytorch1-1&quot;&gt;&lt;a href=&quot;#本节详细说明一下最新GPU深度学习平台配置Ubuntu16-RTX2080Ti-CUDA10-Py36-Pytorch1-1&quot; class=&quot;headerlink&quot; title=&quot;本节详细说明一下最新GPU深度学习平台配置Ubuntu16+RTX2080Ti+CUDA10+Py36+Pytorch1.1&quot;&gt;&lt;/a&gt;本节详细说明一下最新GPU深度学习平台配置Ubuntu16+RTX2080Ti+CUDA10+Py36+Pytorch1.1&lt;/h4&gt;
+      &lt;h4 id=&quot;本节详细说明一下最新GPU深度学习平台环境配置&quot;&gt;&lt;a href=&quot;#本节详细说明一下最新GPU深度学习平台环境配置&quot; class=&quot;headerlink&quot; title=&quot;本节详细说明一下最新GPU深度学习平台环境配置&quot;&gt;&lt;/a&gt;本节详细说明一下最新GPU深度学习平台环境配置&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Ubuntu16+RTX2080Ti+CUDA10+Python3.6+Pytorch1.1&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
