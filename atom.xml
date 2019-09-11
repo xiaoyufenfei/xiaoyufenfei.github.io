@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xiaoyufenfei.github.io/"/>
-  <updated>2019-08-27T04:43:41.957Z</updated>
+  <updated>2019-09-11T07:21:22.641Z</updated>
   <id>http://xiaoyufenfei.github.io/</id>
   
   <author>
@@ -17,11 +17,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>深度学习GPU环境搭建-下篇</title>
+    <link href="http://xiaoyufenfei.github.io/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/"/>
+    <id>http://xiaoyufenfei.github.io/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/</id>
+    <published>2019-09-11T00:30:00.000Z</published>
+    <updated>2019-09-11T07:21:22.641Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;本节详细说明一下最新GPU深度学习平台配置Ubuntu16-RTX2080Ti-CUDA10-Py36-Pytorch1-1&quot;&gt;&lt;a href=&quot;#本节详细说明一下最新GPU深度学习平台配置Ubuntu16-RTX2080Ti-CUDA10-Py36-Pytorch1-1&quot; class=&quot;headerlink&quot; title=&quot;本节详细说明一下最新GPU深度学习平台配置Ubuntu16+RTX2080Ti+CUDA10+Py36+Pytorch1.1&quot;&gt;&lt;/a&gt;本节详细说明一下最新GPU深度学习平台配置Ubuntu16+RTX2080Ti+CUDA10+Py36+Pytorch1.1&lt;/h4&gt;
+    
+    </summary>
+    
+      <category term="深度学习环境搭建" scheme="http://xiaoyufenfei.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="深度学习环境搭建" scheme="http://xiaoyufenfei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>科研工具</title>
     <link href="http://xiaoyufenfei.github.io/2019/08/27/ke-yan-gong-ju/"/>
     <id>http://xiaoyufenfei.github.io/2019/08/27/ke-yan-gong-ju/</id>
     <published>2019-08-27T01:56:12.000Z</published>
-    <updated>2019-08-27T04:43:41.957Z</updated>
+    <updated>2019-09-11T04:46:33.444Z</updated>
     
     <summary type="html">
     
@@ -46,16 +66,16 @@
   </entry>
   
   <entry>
-    <title>深度学习GPU环境搭建</title>
-    <link href="http://xiaoyufenfei.github.io/2019/08/26/shen-du-xue-xi-gpu-huan-jing-da-jian/"/>
-    <id>http://xiaoyufenfei.github.io/2019/08/26/shen-du-xue-xi-gpu-huan-jing-da-jian/</id>
+    <title>深度学习GPU环境搭建-上篇</title>
+    <link href="http://xiaoyufenfei.github.io/2019/08/26/shen-du-xue-xi-gpu-huan-jing-da-jian-shang-pian/"/>
+    <id>http://xiaoyufenfei.github.io/2019/08/26/shen-du-xue-xi-gpu-huan-jing-da-jian-shang-pian/</id>
     <published>2019-08-26T00:29:50.000Z</published>
-    <updated>2019-09-03T14:05:06.666Z</updated>
+    <updated>2019-09-11T07:20:42.415Z</updated>
     
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;为了加速神经网络的训练，使用CPU训练速度很慢，所以使用cuda和cudnn对神经网络进行加速，在配置的过程中你会遇到很多坑，各种坑，网上也有很多教程但是实现起来各种ERROR，真心觉得累，经过多次实验做如下超全总结！！！&lt;/p&gt;
+&lt;p&gt;为了加速神经网络的训练，使用CPU训练速度很慢，所以使用CUDA和cuDNN对神经网络进行加速，在配置的过程中你会遇到很多坑，各种坑，网上也有很多教程但是实现起来各种ERROR，真心觉得累，经过多次实验做如下超全总结！！！&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h4 id=&quot;本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶&quot;&gt;&lt;a href=&quot;#本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶&quot; class=&quot;headerlink&quot; title=&quot;本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶&quot;&gt;&lt;/a&gt;本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶&lt;/h4&gt;
     
