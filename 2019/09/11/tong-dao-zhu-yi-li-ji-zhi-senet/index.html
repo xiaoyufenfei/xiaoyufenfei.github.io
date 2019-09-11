@@ -4,17 +4,13 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="深度学习GPU环境搭建-下篇, NJUPT CV Deep-Learning WangYu">
+    <meta name="keywords" content="通道注意力机制-SENet, NJUPT CV Deep-Learning WangYu">
     <meta name="baidu-site-verification" content>
     <meta name="google-site-verification" content>
-    <meta name="description" content="本节详细说明一下最新GPU深度学习平台环境配置
-Ubuntu16+RTX2080Ti+CUDA10+Python3.6+Pytorch1.1
-
+    <meta name="description" content="SENetarXiv-Link： Squeeze-and-Excitation NetworksJie Hu, Li Shen, Gang Sun
  
 
-服务器环境Ubuntu: 16.04 64bit
-Nvidia driver 410
-An">
+摘要卷积神经网络顾名思义就是依赖卷积操作，使用局部感受区域（local recepti">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +18,7 @@ An">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>深度学习GPU环境搭建-下篇 | 王雨的博客</title>
+    <title>通道注意力机制-SENet | 王雨的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -279,13 +275,13 @@ An">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/27.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        深度学习GPU环境搭建-下篇
+                        通道注意力机制-SENet
                     </div>
                 </div>
             </div>
@@ -396,8 +392,8 @@ An">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/深度学习环境搭建/" target="_blank">
-                                <span class="chip bg-color">深度学习环境搭建</span>
+                            <a href="/tags/计算机视觉/" target="_blank">
+                                <span class="chip bg-color">计算机视觉</span>
                             </a>
                         
                     </div>
@@ -408,8 +404,8 @@ An">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/深度学习环境搭建/" class="post-category" target="_blank">
-                                深度学习环境搭建
+                            <a href="/categories/Paper-Reading/" class="post-category" target="_blank">
+                                Paper Reading
                             </a>
                         
                     </div>
@@ -435,14 +431,14 @@ An">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.8k
+                        2.3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        11 分
+                        8 分
                     </div>
                     
                 
@@ -458,204 +454,42 @@ An">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="本节详细说明一下最新GPU深度学习平台环境配置"><a href="#本节详细说明一下最新GPU深度学习平台环境配置" class="headerlink" title="本节详细说明一下最新GPU深度学习平台环境配置"></a>本节详细说明一下最新GPU深度学习平台环境配置</h4><blockquote>
-<p><strong>Ubuntu16+RTX2080Ti+CUDA10+Python3.6+Pytorch1.1</strong></p>
-</blockquote>
+                <h2 id="SENet"><a href="#SENet" class="headerlink" title="SENet"></a>SENet</h2><p>arXiv-Link： <a href="https://arxiv.org/abs/1709.01507" target="_blank" rel="noopener">Squeeze-and-Excitation Networks</a><br>Jie Hu, Li Shen, Gang Sun</p>
 <a id="more"></a> 
 
-<h4 id="服务器环境"><a href="#服务器环境" class="headerlink" title="服务器环境"></a>服务器环境</h4><pre class="line-numbers language-bash"><code class="language-bash">Ubuntu: 16.04 64bit
-Nvidia driver 410
-Anaconda: 3
-python3.6
-CUDA: 10.0
-cuDNN: 7.4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="1-安装Linux系统"><a href="#1-安装Linux系统" class="headerlink" title="1.安装Linux系统"></a>1.安装Linux系统</h4><p>需要从网上下载ubuntu系统，并制作安装U盘。</p>
-<ul>
-<li>准备工作。制作Ubuntu系统启动U盘，可参考<a href="https://blog.csdn.net/fesdgasdgasdg/article/details/54183577" target="_blank" rel="noopener">链接</a></li>
-<li>U盘启动安装，开机按delete或f2进入BIOS，更改启动方式，U盘启动</li>
-<li>进入ubuntun选择试用不安装，进入之前的unbuntun系统，备份home盘数据（如果不备份，重装系统数据会清除）。</li>
-<li>U盘启动，选择install unbuntun. 选择英文，图形界面不勾选，installtion type 选择 something else。 注：如果是安装双系统，不要选择第二项 擦除数据，这会把之前系统盘文件全部删除。<br>参考博客<a href="https://blog.csdn.net/fesdgasdgasdg/article/details/54183577?tdsourcetag=s_pcqq_aiomsg" target="_blank" rel="noopener">https://blog.csdn.net/fesdgasdgasdg/article/details/54183577?tdsourcetag=s_pcqq_aiomsg</a></li>
-<li>进入unbuntun系统，图形分辨率字很大，不用担心，因为没安装显卡驱动原因。<br>安装对应显卡驱动</li>
-<li>安装完显卡驱动，你将拥有全新的unbuntun系统，则可以进行你常用的环境配置与软件安装，以自身需求，介绍一下要用到的深度学习环境和常用软件安装。安装常用软件 谷歌浏览器，搜狗输入法，notepad++, 为知笔记，pycharm, anaconda, cuda,opencv pytorch tensorflow 配置VPN，teamviewer 等。<br>cuda+cudnn,参考链接<a href="https://blog.csdn.net/gdengden/article/details/89399653" target="_blank" rel="noopener">https://blog.csdn.net/gdengden/article/details/89399653</a></li>
-</ul>
-<h4 id="2-安装英伟达NVIDIA驱动"><a href="#2-安装英伟达NVIDIA驱动" class="headerlink" title="2.安装英伟达NVIDIA驱动"></a>2.安装英伟达NVIDIA驱动</h4><p>1.禁用nouveau</p>
-<p>安装NVIDIA需要把系统自带的驱动禁用，打开文件：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> vim /etc/modprobe.d/blacklist.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>在文本最后添加以下内容：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">blacklist nouveau
-options nouveau modeset<span class="token operator">=</span>0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>命令窗口会提示warning，忽略即可。保存退出，执行以下命令生效：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> update-initramfs -u<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>重启后，执行以下命令：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">lsmod <span class="token operator">|</span> <span class="token function">grep</span> nouveau<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>如果没有屏幕输出，说明禁用nouveau成功</p>
-<p>2.下载驱动文件</p>
-<p>安装好linux系统后，对于RTX2080ti来说，Nvidia driver 384已经不适合了，请从<a href="https://link.zhihu.com/?target=https%3A//www.nvidia.com/Download/index.aspx" target="_blank" rel="noopener">官方网站</a>下载和自己的显卡适配的驱动文件，是.run文件，下载地址:<a href="https://www.nvidia.cn/Download/index.aspx" target="_blank" rel="noopener">Download Drivers</a></p>
-<p>下载完成之后会得到一个安装包，不同版本文件名可能不一样：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">NVIDIA-Linux-x86_64-410.93.run<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>3.卸载原有的NVIDIA驱动（<strong>没装的话就跳过第3步</strong>）</p>
-<p>操作都需要在命令界面操作，执行以下快捷键进入命令界面，并登录：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">Ctrl-Alt+F1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>执行以下命令禁用<strong>X-Window</strong>服务，否则无法安装显卡驱动：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">service</span> lightdm stop<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>执行以下三条命令卸载原有显卡驱动：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> remove --purge nvidia*
-<span class="token function">sudo</span> <span class="token function">chmod</span> +x NVIDIA-Linux-x86_64-410.93.run
-<span class="token function">sudo</span> ./NVIDIA-Linux-x86_64-410.93.run --uninstall<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>4.安装新驱动</p>
-<p>直接执行驱动文件即可安装新驱动，一直默认即可：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> ./NVIDIA-Linux-x86_64-410.93.run<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>执行以下命令启动<strong>X-Window</strong>服务:</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">service</span> lightdm start<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>最后执行重启命令，重启系统即可：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">reboot</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>安装完成后，查看驱动版本：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> dpkg --list <span class="token operator">|</span> <span class="token function">grep</span> nvidia-*
-nvidia-smi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>不出意外说明显卡驱动成功安装，后面继续安装cuda.</p>
-<p>特别注意：<strong>如果系统重启之后出现重复登录的情况，多数情况下都是安装了错误版本的显卡驱动</strong>。需要下载对应本身机器安装的显卡版本。</p>
-<h4 id="3-安装CUDA"><a href="#3-安装CUDA" class="headerlink" title="3.安装CUDA"></a>3.安装CUDA</h4><p>1.卸载旧的CUDA</p>
-<p>这是因为如果您的显卡RTX2080，安装了CUDA 8.0 和 CUDNN 7.0.5或者CUDA9.0不能够正常使用，需要安装CUDA 10.0 和 CUDNN 7.4.2，所以要先卸载原来的CUDA。注意以下的命令都是在root用户下操作的。</p>
-<p>卸载CUDA很简单，主要执行的是CUDA自带的卸载脚本，请根据自己的cuda版本找到卸载脚本：</p>
-<p>如果之前安装了CUDA 9.0在 /usr/local/cuda-9.0/bin 目录下有一个 uninstall_cuda*.pl 文件，CUDA8卸载同理，可以直接运行卸载，命令如下：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> /usr/local/cuda-9.0/bin/uninstall_cuda_9.0.pl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>卸载之后，还有一些残留的文件夹，如果之前安装的是CUDA 9.0，可以一并删除：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">rm</span> -r /usr/local/cuda-9.0/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这样即可将 CUDA 全部卸载。</p>
-<p>2.安装CUDA</p>
-<p>安装的CUDA10.0和CUDNN7.4.2版本：</p>
-<p>接下来的安装步骤都是在<strong>root用户</strong>下操作的。</p>
-<ul>
-<li>下载和安装CUDA</li>
-</ul>
-<p>我们可以在官网：<a href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1604&target_type=runfilelocal" target="_blank" rel="noopener">CUDA10下载页面</a>，<br>下载符合自己系统版本的CUDA。</p>
-<p>cd 到下载的文件目录.run文件下，root下安装</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">chmod</span> +x cuda_10.0.130_410.48_linux.run // 获取权限
-<span class="token function">sudo</span> sh cuda_10.0.130_410.48_linux.run   // 执行安装包，开始安装<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>开始安装之后，需要阅读说明，可以使用<code>Ctrl + C</code>直接阅读完成，或者使用<code>空格键</code>慢慢阅读。然后进行配置，这里说明一下：</p>
-<p>注意：为了避免问题，不要选择安装CUDA下的显卡驱动，其他选yes</p>
-<pre class="line-numbers language-bash"><code class="language-bash">（是否同意条款，必须同意才能继续安装）
-accept/decline/quit: accept
-
-（这里不要安装驱动，因为已经安装最新的驱动了，否则可能会安装旧版本的显卡驱动，导致重复登录的情况）
-Install NVIDIA Accelerated Graphics Driver <span class="token keyword">for</span> Linux-x86_64 410.48?
-<span class="token punctuation">(</span>y<span class="token punctuation">)</span>es/<span class="token punctuation">(</span>n<span class="token punctuation">)</span>o/<span class="token punctuation">(</span>q<span class="token punctuation">)</span>uit: n
-
-Install the CUDA 10.0 Toolkit?（是否安装CUDA 10 ，这里必须要安装）
-<span class="token punctuation">(</span>y<span class="token punctuation">)</span>es/<span class="token punctuation">(</span>n<span class="token punctuation">)</span>o/<span class="token punctuation">(</span>q<span class="token punctuation">)</span>uit: y
-
-Enter Toolkit Location（安装路径，使用默认，直接回车就行）
- <span class="token punctuation">[</span> default is /usr/local/cuda-10.0 <span class="token punctuation">]</span>:  
-
-Do you want to <span class="token function">install</span> a symbolic <span class="token function">link</span> at /usr/local/cuda?（同意创建软链接）
-<span class="token punctuation">(</span>y<span class="token punctuation">)</span>es/<span class="token punctuation">(</span>n<span class="token punctuation">)</span>o/<span class="token punctuation">(</span>q<span class="token punctuation">)</span>uit: y
-
-Install the CUDA 10.0 Samples?（不用安装测试，本身就有了）
-<span class="token punctuation">(</span>y<span class="token punctuation">)</span>es/<span class="token punctuation">(</span>n<span class="token punctuation">)</span>o/<span class="token punctuation">(</span>q<span class="token punctuation">)</span>uit: n
-
-Installing the CUDA Toolkit <span class="token keyword">in</span> /usr/local/cuda-10.0 <span class="token punctuation">..</span>.（开始安装）
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>安装完成之后，可以配置他们的环境变量，打开.bashrc 文件：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> gedit ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>打开文件后将下面代码加入文件最后，cuda位置，要根据自己cuda版本安装路径:</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">export</span> CUDA_HOME<span class="token operator">=</span>/usr/local/cuda-10.0
-<span class="token function">export</span> LD_LIBRARY_PATH<span class="token operator">=</span><span class="token variable">${CUDA_HOME}</span>/lib64:<span class="token variable">${LDLIBRARY_PATH}</span>
-<span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">${CUDA_HOME}</span>/bin:<span class="token variable">${PATH}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>保存 关闭，命令行输入,使配置生效：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">source</span> ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>终端输入：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">nvcc --version  或   nvcc -V<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>会输出CUDA的版本信息，cuda安装成功。</p>
-<h4 id="4-下载和安装cuDNN"><a href="#4-下载和安装cuDNN" class="headerlink" title="4.下载和安装cuDNN"></a>4.下载和安装cuDNN</h4><p>1.官网下载：<a href="https://developer.nvidia.com/rdp/cudnn-download" target="_blank" rel="noopener">https://developer.nvidia.com/rdp/cudnn-download</a><br>进入时需要登录，没有账户的话就注册一个，进入即可。选择和自己cuda适配的版本。</p>
-<p>2.解压下载好的cudnn压缩包，如：</p>
-<p>cudnn-10.0-linux-x64-v7.4.2.24.tgz 或者 cudnn-10.0-linux_x64-v7.6.0.64.tgz</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">tar</span> -zxvf cudnn-10.0-linux-x64-v7.4.2.24.tgz <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>解压之后可以得到以下文件：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">cuda/include/cudnn.h
-cuda/NVIDIA_SLA_cuDNN_Support.txt
-cuda/lib64/libcudnn.so
-cuda/lib64/libcudnn.so.7
-cuda/lib64/libcudnn.so.7.4.2
-cuda/lib64/libcudnn_static.a<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>使用以下两条命令复制这些文件到CUDA目录下：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">cp</span> cuda/include/cudnn.h /usr/local/cuda-10.0/include/
-<span class="token function">sudo</span> <span class="token function">cp</span> cuda/lib64/libcudnn* /usr/local/cuda-10.0/lib64/
-<span class="token function">sudo</span> <span class="token function">chmod</span> a+r /usr/local/cuda-10.0/include/cudnn.h
-<span class="token function">sudo</span> <span class="token function">chmod</span> a+r /usr/local/cuda-10.0/lib64/libcudnn*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>3.查看cudnn版本，可以使用以下命令查看CUDNN的版本信息</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /usr/local/cuda/include/cudnn.h <span class="token operator">|</span> <span class="token function">grep</span> CUDNN_MAJOR -A 2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>安装好cuda和cudnn之后，恭喜你，就可以安装tensorflow、pytorch等深度学习框架了。</p>
-<h4 id="5-安装Anaconda3"><a href="#5-安装Anaconda3" class="headerlink" title="5.安装Anaconda3"></a>5.安装Anaconda3</h4><p>这里使用 Anaconda 3 来安装，下载地址：<a href="https://www.anaconda.com/download/#linux，点击" target="_blank" rel="noopener">https://www.anaconda.com/download/#linux，点击</a> Download 按钮下载即可，这里下载的是 Anaconda 3-5.1 版本，如果下载速度过慢,强烈建议选择使用<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/" target="_blank" rel="noopener">清华镜像</a> 。</p>
-<p>下载下来之后目录下会出现一个 Anaconda3-5.1.0-Linux-x86_64.sh 文件，然后直接执行即可安装：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">bash</span> Anaconda3-5.1.0-Linux-x86_64.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>执行完毕之后按照默认设置走下来即可完成安装。</p>
-<p>这里默认它会安装到用户目录下，如果想全局安装，可以在这一步输入你要安装的地址：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">Anaconda3 will now be installed into this location:
-/home/wy/anaconda3
-
-  - Press ENTER to confirm the location
-  - Press CTRL-C to abort the installation
-  - Or specify a different location below
-
-<span class="token punctuation">[</span>/home/wy/anaconda3<span class="token punctuation">]</span> <span class="token operator">>></span><span class="token operator">></span> /usr/local/anaconda3
-PREFIX<span class="token operator">=</span>/usr/local/anaconda3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里我指定了将其安装到 /usr/local/anaconda3 目录下，全局安装，所有用户共享，当然如果只想本用户使用的话使用默认配置即可。</p>
-<p>安装完成之后添加 python3 和 pip3 的软链接：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">ln</span> -s /usr/local/anaconda3/bin/python3 /usr/local/sbin/python3
-<span class="token function">sudo</span> <span class="token function">ln</span> -s /usr/local/anaconda3/bin/pip /usr/local/sbin/pip3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>这里是将软连接其添加到 /usr/local/sbin 目录下了，它默认会存在于环境变量中，因此可以直接调用。</p>
-<p>当然也可以选择把 /usr/local/anaconda3/bin 目录添加到环境变量中，具体地，可以修改 ~/.bashrc 文件，添加如下内容：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">export</span> PATH<span class="token operator">=</span>/usr/local/anaconda3/bin<span class="token variable">${PATH:+:${PATH}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>然后执行：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">source</span> ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>即可生效，下次登录时也会默认执行 ~/.bashrc 文件，也会生效。</p>
-<p>接下来我们验证下 python3、pip3 命令是否都来自 Anaconda，命令如下：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">pip3 -V
-pip 9.0.1 from /usr/local/anaconda3/lib/python3.6/site-packages <span class="token punctuation">(</span>python 3.6<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">which</span> python3
-/usr/local/anaconda3/bin/python3
-python3
-Python 3.6.4 <span class="token operator">|</span>Anaconda, Inc.<span class="token operator">|</span> <span class="token punctuation">(</span>default, Jan 16 2018, 18:10:19<span class="token punctuation">)</span> 
-<span class="token punctuation">[</span>GCC 7.2.0<span class="token punctuation">]</span> on linux
-Type <span class="token string">"help"</span>, <span class="token string">"copyright"</span>, <span class="token string">"credits"</span> or <span class="token string">"license"</span> <span class="token keyword">for</span> <span class="token function">more</span> information.
-<span class="token operator">>></span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如果输入 pip3 和 python3 命令能出现如上类似结果，路径都在 /usr/local/anaconda3，就证明 Python 3 安装成功了。</p>
-<h4 id="6-安装TensorFlow-1-8"><a href="#6-安装TensorFlow-1-8" class="headerlink" title="6.安装TensorFlow 1.8"></a>6.安装TensorFlow 1.8</h4><p>到现在为止 Python 3.6、CUDA 10.0 和 cuDNN 7.14就已经安装好了，而且环境变量也配置好了，接下来我们直接安装 TensorFlow 1.8 即可。</p>
-<p>这里需要安装的是 TensorFlow 的 GPU 版本，命令如下：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> tensorflow-gpu<span class="token operator">==</span>1.8.0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>你会发现上面安装特别慢，强烈建议使用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
-<pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> tensorflow-gpu<span class="token operator">==</span>1.8.0 -i https://pypi.tuna.tsinghua.edu.cn/simple<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>安装完成之后验证一下：</p>
-<pre class="line-numbers language-python"><code class="language-python">python
-<span class="token keyword">import</span> tensorflow <span class="token keyword">as</span> tf
-tf<span class="token punctuation">.</span>__version__
-tf<span class="token punctuation">.</span>__path__<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如果没有报错，那就证明全部环境配置都成功了。</p>
-<p>如果您的tensorflow安装后不能使用，请考虑tensorflow版本和CUDA、cuDNN版本的兼容问题，请自行百度。</p>
-<h4 id="7-Pytorch-1-1"><a href="#7-Pytorch-1-1" class="headerlink" title="7.Pytorch 1.1"></a>7.Pytorch 1.1</h4><p>安装过程中注意：torch和torchvision版本相匹配</p>
-<pre class="line-numbers language-bash"><code class="language-bash">如不匹配，可能报错：
-torchvision 0.3.0 has requirement torch<span class="token operator">>=</span>1.1.0, but you'll have torch 1.0.0 <span class="token function">which</span> is incompatible.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>RTX 2080Ti，CUDA安装版本10及以上，这个时候pytorch不能直接用pip装，要通过：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> https://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>发现速度实在太慢！！于是我们考虑离线安装：</p>
-<p>注意控制台出现的下载路径，手动下载：</p>
-<p>到官网下载torch1.1：<a href="https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl" target="_blank" rel="noopener">https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl</a> ，将本地文件上传到服务器指定位置，路径换到压缩包所在位置，在控制台输入指令：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> torch-1.1.0-cp36-cp36m-linux_x86_64.whl
-pip3 <span class="token function">install</span> torchvision<span class="token operator">==</span>0.3.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>这样就安装好啦，然后测试一下：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">python
-<span class="token function">import</span> torch,torchvision
-torch.__version__
-torchvision.__version__
-torch.__path__
-torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>以上便是 <code>Ubuntu 16.04 + RTX 2080 Ti + Python 3.6 + CUDA 10.0 + cuDNN 7.4 + TensorFlow 1.8 + Pytorch 1.1</code>等 完整环境配置过程。</p>
-<h4 id="他山之石："><a href="#他山之石：" class="headerlink" title="他山之石："></a>他山之石：</h4><ul>
-<li><a href="https://blog.csdn.net/weixin_42718092/article/details/86016973" target="_blank" rel="noopener">Ubuntu下安装CUDA10.0遇到的问题（一定要注意自己版本）</a></li>
-<li><a href="https://blog.csdn.net/omodao1/article/details/83241074" target="_blank" rel="noopener">Tensorflow不同版本要求与CUDA及cuDNN版本对应关系</a></li>
-<li><a href="https://www.jianshu.com/p/6f3871877b59" target="_blank" rel="noopener">ubuntu 18.04 安装后基本配置以及常用软件安装</a></li>
-<li><a href="https://dl.ypw.io/" target="_blank" rel="noopener">深度学习工程师生存指南</a></li>
-</ul>
+<h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h4><p>卷积神经网络顾名思义就是依赖卷积操作，使用局部感受区域（local receptive field）的思想融合空间信息和通道信息来提取包含信息的特征。有很多工作从增强空间维度编码的角度来提升网络的表示能力，本文主要聚焦于通道维度，并提出一种新的结构单元——“Squeeze-and-Excitation(SE)”单元，对通道间的依赖关系进行建模，可以自适应的调整各通道的特征响应值。如果将SE block添加到之前的先进网络中，只会增加很小的计算消耗，但却可以极大地提升网络性能。依靠SENet作者获得了ILSVRC2017分类任务的第一名，top-5错误率为2.251%。</p>
+<h4 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h4><p>每个卷积层有若干滤波器，可以学习表达包含所有通道的局部空间连接模式。也就是说，卷积滤波器提取局部感受区域中的空间和通道的融合信息。再加上非线性激活层和降采样层，CNN可以获得具有全局感受区域的分层模式来作为图像的描述。最近的一些工作表明，可以通过加入有助于获取空间相关性的学习机制来改善网络的性能，而且不需要额外的监督。例如Inception架构，通过在模块中加入多尺度处理来提高性能。另有探索更好的空间相关性的模型或者添加空间注意力的一些工作。</p>
+<p>与上述方法不同，本文主要探索网络架构设计的另一个方面——通道关联性。本文提出一种新的网络单元——“Squeeze-and-Excitation(SE)” block，希望通过对各通道的依赖性进行建模以提高网络的表示能力，并且可以对特征进行逐通道调整，这样网络就可以学习通过全局信息来有选择性的加强包含有用信息的特征并抑制无用特征。<br>SE block的基本结构见图1。第一步squeeze操作，将各通道的全局空间特征作为该通道的表示，形成一个通道描述符；第二步excitation操作，学习对各通道的依赖程度，并根据依赖程度的不同对特征图进行调整，调整后的特征图就是SE block的输出。</p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-1.png" alt></p>
+<p>前面层中的SE block以类别无关（class agnostic）的方式增强可共享的低层表示的质量。越后面的层SE block越来越类别相关。SE block重新调整特征的益处可以在整个网络中积累。SE block设计简单，可以很容易地加入到已有的网络中，只增加少量的模型复杂度和计算开支，另外对不同数据集的泛化能力较强。作者依靠SENet取得了ILSVRC2017分类任务的第一名。官方实现（Caffe）源码地址：<a href="https://github.com/hujie-frank/SENet" target="_blank" rel="noopener">SENet官方实现</a> 。</p>
+<h4 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h4><p><strong>Deep architectures</strong><br>有很多工作通过调整卷积神经网络架构使模型更容易地学习深层特征以提升模型性能。VGG和Inception网络证明可以通过增加深度来提升性能。Batch normalization (BN)在网络中添加可以调节输入数据的单元来稳定学习过程，改善梯度在网络中的传播，使得更深层的网络也可以工作。<a href="https://github.com/binLearning/caffe_toolkit/tree/master/ResNet" target="_blank" rel="noopener">ResNet</a>、<a href="https://github.com/binLearning/caffe_toolkit/tree/master/ResNet-v2" target="_blank" rel="noopener">ResNet-v2</a>在网络中加入恒等映射形式的跳跃连接，使网络学习残差函数，极大推进了网络架构向更深层的发展。<a href="https://github.com/binLearning/caffe_toolkit/tree/master/DenseNet" target="_blank" rel="noopener">DenseNet</a>、<a href="https://github.com/binLearning/caffe_toolkit/tree/master/DPN" target="_blank" rel="noopener">DPN</a>通过调整网络各层间的连接机制来提升深层网络的学习和表示性能。<br>另一个方向是调整网络中模块的形式。分组卷积（grouped convolutions）可以用于增加基数（cardinality），如Deep roots、<a href="https://github.com/binLearning/caffe_toolkit/tree/master/ResNeXt" target="_blank" rel="noopener">ResNeXt</a>中所示，网络可以学习到更丰富的表示。多分支卷积（multi-branch convolutions）可以视为分组卷积的泛化，网络模块可以进行更灵活多变的操作，如Inception系列。跨通道相关是一种新的特征组合方式，可以独立于空间结构（如Xception），或者使用1x1卷积进行处理（如NIN），一般来说这些工作主要是为了降低模型和计算复杂度。这种方法的前提假设是通道是实例无关（instance-agnostic）的，也就是说输出对于输入数据各通道的依赖性是相同的，不是类别相关的。与之相反，本文提出一种新的机制，使用全局信息对各通道动态的非线性的依赖性进行建模，可以改善学习过程并提升网络的表示能力。</p>
+<p><strong>Attention and gating mechanisms</strong><br>注意力机制（attention）引导计算资源偏向输入信号中信息量最大的部分，近几年开始大量用于深度神经网络中，在很多任务中对性能有极大提升。它一般是和门限函数（如softmax、sigmoid）或者序列方法联合使用。highway网络使用门限机制来调节快捷连接，Residual attention network for image classification中介绍了一种trunk-and-mask注意力机制用于沙漏模型（hourglass module），成功的用于语义分割任务。SE block是一种轻量级的门限机制，专门用于对各通道的关联性进行建模。</p>
+<h4 id="3-Squeeze-and-Excitation-Blocks"><a href="#3-Squeeze-and-Excitation-Blocks" class="headerlink" title="3. Squeeze-and-Excitation Blocks"></a>3. Squeeze-and-Excitation Blocks</h4><p>卷积层的输出并没有考虑对各通道的依赖性，本文的目标就是让网络有选择性的增强信息量大的特征，使得后续处理可以充分利用这些特征，并对无用特征进行抑制。</p>
+<h4 id="3-1-Squeeze-Global-Information-Embedding"><a href="#3-1-Squeeze-Global-Information-Embedding" class="headerlink" title="3.1 Squeeze: Global Information Embedding"></a>3.1 Squeeze: Global Information Embedding</h4><p>首先考察输出特征每个通道的信号，压缩（squeeze）全局空间信息为通道描述符，使用全局平均池化来生成各通道的统计量。</p>
+<h4 id="3-2-Excitation-Adaptive-Recalibration"><a href="#3-2-Excitation-Adaptive-Recalibration" class="headerlink" title="3.2 Excitation: Adaptive Recalibration"></a>3.2 Excitation: Adaptive Recalibration</h4><p>第二就是考察各通道的依赖程度，实现函数有两个标准：一是要灵活，二是要学习一个非互斥的关系，因为可能多个通道都会对结果有影响。本文使用带sigmoid激活函数的门限机制来实现。为了限制模型复杂度并增强泛化能力，门限机制中使用bottleneck形式的两个全连接层，第一个FC层降维至1/r，r为超参数，本文取16，具体见6.3实验。最后的sigmoid函数就是各通道的权重，根据输入数据调节各通道特征的权重，有助于增强特征的可分辨性。</p>
+<h4 id="3-3-Exemplars-SE-Inception-and-SE-ResNet"><a href="#3-3-Exemplars-SE-Inception-and-SE-ResNet" class="headerlink" title="3.3 Exemplars: SE-Inception and SE-ResNet"></a>3.3 Exemplars: SE-Inception and SE-ResNet</h4><p>在Inception网络和ResNet网络中加入SE block，具体见图2、图3。</p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-2.png" alt></p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-3.png" alt></p>
+<h4 id="4-Model-and-Computational-Complexity"><a href="#4-Model-and-Computational-Complexity" class="headerlink" title="4. Model and Computational Complexity"></a>4. Model and Computational Complexity</h4><p>对添加了SE block的网络的具体配置见表1。</p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-4.png" alt></p>
+<p>每个SE block中包含一个全局平均池化操作，两个小的全连接层，最后一个简单的逐通道缩放操作，全部合起来在ResNet-50的基础上增加了0.26%的计算量。新添加的参数量主要来自于两个全连接层，ResNet-50增加了约10%，大多数都是来自最后阶段，此时的通道维度很大。但是实验发现如果去掉最后阶段的SE block性能并没有太大影响，而新增加的参数量则会减小到约4%。</p>
+<h4 id="5-Implementation"><a href="#5-Implementation" class="headerlink" title="5. Implementation"></a>5. Implementation</h4><p>基本都是常规处理和训练设置。采用了Relay backpropagation for effective learning of deep convolutional neural networks中的数据平衡策略。</p>
+<h4 id="6-Experiments"><a href="#6-Experiments" class="headerlink" title="6. Experiments"></a>6. Experiments</h4><h4 id="6-1-ImageNet-Classification"><a href="#6-1-ImageNet-Classification" class="headerlink" title="6.1 ImageNet Classification"></a>6.1 ImageNet Classification</h4><p>本文实验的不同网络的配置见表2，训练曲线见图4-6。 </p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-5.png" alt></p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-6.png" alt></p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-7.png" alt></p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-8.png" alt></p>
+<p>在ImageNet验证集上不同网络的表现见表3。</p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-9.png" alt></p>
+<h4 id="6-2-Scene-Classification"><a href="#6-2-Scene-Classification" class="headerlink" title="6.2 Scene Classification"></a>6.2 Scene Classification</h4><p>不同网络的性能对比见表4。</p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-10.png" alt></p>
+<h4 id="6-3-Analysis-and-Discussion"><a href="#6-3-Analysis-and-Discussion" class="headerlink" title="6.3 Analysis and Discussion"></a>6.3 Analysis and Discussion</h4><p><strong>Reduction ratio</strong><br>3.2中讨论的降维系数是超参数，它不同取值对网络性能的影响见表5。</p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-11.png" alt></p>
+<p>为了权衡准确率与复杂度，本文选取r=16。<br><strong>The role of Excitation</strong><br>考察自门限（self-gating）excitation机制。选取四个类别（如图7），分别考察不同层中的SE block的平均激活值，其分布如图8所示。</p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-12.png" alt></p>
+<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-13.png" alt></p>
+<p>通过观察图8中不同层SE block激活值的分布情况，发现1)前面层中的分布基本一样，说明这一阶段的特征是类别无关的；2)后续层中分布越来越类别相关，每个类别对特征由不同的选择；3)SE_5_2和SE_5_3中的分布也基本一致，说明这两层对网络重新调整的重要性不高，可以去掉这两层中的SE block以减少参数量，如第4章中所述。</p>
+<h4 id="7-Conclusion"><a href="#7-Conclusion" class="headerlink" title="7. Conclusion"></a>7. Conclusion</h4><p>SE block根据输入动态调整各通道的特征，增强网络的表示能力。另外也可以用于辅助网络修剪/压缩的工作。</p>
 
             </div>
             <hr/>
@@ -814,9 +648,9 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《深度学习GPU环境搭建-下篇》
+                    《通道注意力机制-SENet》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/" property="cc:attributionName"
                rel="cc:attributionURL">
                 王雨
             </a> 采用
@@ -857,7 +691,7 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
         repo: 'xiaoyufenfei.github.io',
         owner: 'xiaoyufenfei',
         admin: "xiaoyufenfei",
-        id: '2019-09-11T08-30-00',
+        id: '2019-09-11T21-51-58',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -878,9 +712,10 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/">
                     <div class="card-image">
@@ -901,9 +736,9 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-11
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -916,6 +751,7 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -934,36 +770,31 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/08/27/ke-yan-gong-ju/">
+                <a href="/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="科研工具">
+                        <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="深度学习GPU环境搭建-下篇">
                         
-                        <span class="card-title">科研工具</span>
+                        <span class="card-title">深度学习GPU环境搭建-下篇</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Some tips for research and coding本博文正在丰富内容～～～😄
-1. 科研起步必读文章
-1.Karpathy-博士经验 (翻译) 重点
-2.陈天奇-科研十年
-3.王一-科研idea
-4.王赟-我的八年博士生涯
+                            工欲善其事必先利其器！深度学习环境搭建-下篇, Ubuntu系统下RTX2080Ti深度学习环境配置.
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-27
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-11
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/科研工具/" class="post-category" target="_blank">
-                                    科研工具
+                            <a href="/categories/深度学习环境搭建/" class="post-category" target="_blank">
+                                    深度学习环境搭建
                                 </a>
                             
                             
@@ -973,8 +804,8 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/科研工具/" target="_blank">
-                        <span class="chip bg-color">科研工具</span>
+                    <a href="/tags/深度学习环境搭建/" target="_blank">
+                        <span class="chip bg-color">深度学习环境搭建</span>
                     </a>
                     
                 </div>
