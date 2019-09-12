@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xiaoyufenfei.github.io/"/>
-  <updated>2019-09-11T14:22:00.204Z</updated>
+  <updated>2019-09-12T14:24:26.389Z</updated>
   <id>http://xiaoyufenfei.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Latex撰写论文常用技巧总结</title>
+    <link href="http://xiaoyufenfei.github.io/2019/09/12/latex-zhuan-xie-lun-wen-chang-yong-ji-qiao-zong-jie/"/>
+    <id>http://xiaoyufenfei.github.io/2019/09/12/latex-zhuan-xie-lun-wen-chang-yong-ji-qiao-zong-jie/</id>
+    <published>2019-09-12T12:44:03.000Z</published>
+    <updated>2019-09-12T14:24:26.389Z</updated>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;middle&quot;&gt;&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;//music.163.com/outchain/player?type=2&amp;id=483671599&amp;auto=1&amp;height=66&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+写论文不得不时常与Latex打交道，这篇博文专门用来记录使用Latex撰写论文过程中遇到的一些技巧与心得。
+    
+    </summary>
+    
+      <category term="软件安装与配置" scheme="http://xiaoyufenfei.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/"/>
+    
+    
+      <category term="软件安装与配置" scheme="http://xiaoyufenfei.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/"/>
+    
+  </entry>
   
   <entry>
     <title>通道注意力机制-SENet</title>
@@ -63,7 +84,7 @@
     <link href="http://xiaoyufenfei.github.io/2019/08/27/ke-yan-gong-ju/"/>
     <id>http://xiaoyufenfei.github.io/2019/08/27/ke-yan-gong-ju/</id>
     <published>2019-08-27T01:56:12.000Z</published>
-    <updated>2019-09-11T04:46:33.444Z</updated>
+    <updated>2019-09-11T14:30:50.397Z</updated>
     
     <summary type="html">
     
