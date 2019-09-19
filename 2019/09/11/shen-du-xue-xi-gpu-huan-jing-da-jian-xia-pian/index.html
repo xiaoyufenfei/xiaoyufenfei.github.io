@@ -8,7 +8,7 @@
     <meta name="baidu-site-verification" content>
     <meta name="google-site-verification" content>
     <meta name="description" content="本节详细说明一下最新GPU深度学习平台环境配置
-Ubuntu16+RTX2080Ti+CUDA10+Python3.6+Pytorch1.1
+Ubuntu16+RTX2080Ti+CUDA10+Python3.6+Pytorch1.2
 
  
 
@@ -435,14 +435,14 @@ An">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.8k
+                        2.9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        11 分
+                        12 分
                     </div>
                     
                 
@@ -459,7 +459,7 @@ An">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h4 id="本节详细说明一下最新GPU深度学习平台环境配置"><a href="#本节详细说明一下最新GPU深度学习平台环境配置" class="headerlink" title="本节详细说明一下最新GPU深度学习平台环境配置"></a>本节详细说明一下最新GPU深度学习平台环境配置</h4><blockquote>
-<p><strong>Ubuntu16+RTX2080Ti+CUDA10+Python3.6+Pytorch1.1</strong></p>
+<p><strong>Ubuntu16+RTX2080Ti+CUDA10+Python3.6+Pytorch1.2</strong></p>
 </blockquote>
 <a id="more"></a> 
 
@@ -631,25 +631,29 @@ Type <span class="token string">"help"</span>, <span class="token string">"copyr
 tf<span class="token punctuation">.</span>__version__
 tf<span class="token punctuation">.</span>__path__<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果没有报错，那就证明全部环境配置都成功了。</p>
-<p>如果您的tensorflow安装后不能使用，请考虑tensorflow版本和CUDA、cuDNN版本的兼容问题，请自行百度。</p>
-<h4 id="7-Pytorch-1-1"><a href="#7-Pytorch-1-1" class="headerlink" title="7.Pytorch 1.1"></a>7.Pytorch 1.1</h4><p>安装过程中注意：torch和torchvision版本相匹配</p>
+<p>如果您的tensorflow安装后不能使用，请考虑<strong>tensorflow版本和CUDA、cuDNN版本的兼容问题</strong>，请自行百度, 也可参考本博文下方链接。</p>
+<h4 id="7-Pytorch-1-2"><a href="#7-Pytorch-1-2" class="headerlink" title="7.Pytorch 1.2"></a>7.Pytorch 1.2</h4><p>安装过程中注意：torch和torchvision版本相匹配</p>
 <pre class="line-numbers language-bash"><code class="language-bash">如不匹配，可能报错：
 torchvision 0.3.0 has requirement torch<span class="token operator">>=</span>1.1.0, but you'll have torch 1.0.0 <span class="token function">which</span> is incompatible.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>RTX 2080Ti，CUDA安装版本10及以上，这个时候pytorch不能直接用pip装，要通过：</p>
+<p>RTX 2080Ti，CUDA安装版本10及以上，</p>
+<p><strong>方案一：</strong> <strong>通过pytorch官发链接pip装</strong>，命令如下：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> https://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>发现速度实在太慢！！于是我们考虑离线安装：</p>
-<p>注意控制台出现的下载路径，手动下载：</p>
+<p>发现速度实在太慢！！于是我们考虑</p>
+<p><strong>方案二：</strong> <strong>离线安装</strong>：</p>
+<p>注意方案一 <strong>在控制台出现的下载路径</strong>，复制到浏览器，手动下载：</p>
 <p>到官网下载torch1.1：<a href="https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl" target="_blank" rel="noopener">https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl</a> ，将本地文件上传到服务器指定位置，路径换到压缩包所在位置，在控制台输入指令：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> torch-1.1.0-cp36-cp36m-linux_x86_64.whl
 pip3 <span class="token function">install</span> torchvision<span class="token operator">==</span>0.3.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>这样就安装好啦，然后测试一下：</p>
+<p><strong>方案三：</strong> <strong>以上两种方案纯属呵呵</strong>🙂，强烈建议使用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener"><strong>国内pypi源加速</strong></a> , 直接安装pytorch最新版本，最新版本做了诸多优化！通过<strong>pypi镜像安装</strong>速度超快啊  ★★★★★</p>
+<pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> torch torchvision -i https://pypi.tuna.tsinghua.edu.cn/simple<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这样就安装好啦，然后测试一下, 会输出<code>torch版本1.2.0，torchvision版本0.4.0</code>：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">python
 <span class="token function">import</span> torch,torchvision
 torch.__version__
 torchvision.__version__
 torch.__path__
 torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>以上便是 <code>Ubuntu 16.04 + RTX 2080 Ti + Python 3.6 + CUDA 10.0 + cuDNN 7.4 + TensorFlow 1.8 + Pytorch 1.1</code>等 完整环境配置过程。</p>
+<p>以上便是 <code>Ubuntu 16.04 + RTX 2080 Ti + Python 3.6 + CUDA 10.0 + cuDNN 7.4 + TensorFlow 1.8 + Pytorch 1.2</code>等 完整环境配置过程。</p>
 <h4 id="他山之石："><a href="#他山之石：" class="headerlink" title="他山之石："></a>他山之石：</h4><ul>
 <li><a href="https://blog.csdn.net/weixin_42718092/article/details/86016973" target="_blank" rel="noopener">Ubuntu下安装CUDA10.0遇到的问题（一定要注意自己版本）</a></li>
 <li><a href="https://blog.csdn.net/omodao1/article/details/83241074" target="_blank" rel="noopener">Tensorflow不同版本要求与CUDA及cuDNN版本对应关系</a></li>
@@ -1132,7 +1136,7 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">13.7k</span>
+                <span class="white-color">13.9k</span>
             
 
             
