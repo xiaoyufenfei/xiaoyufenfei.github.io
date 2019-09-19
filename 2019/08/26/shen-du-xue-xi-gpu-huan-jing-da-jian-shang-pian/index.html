@@ -431,7 +431,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.3k
+                        3.4k
                     </div>
                     
 
@@ -619,6 +619,8 @@ tf<span class="token punctuation">.</span>__path__<span aria-hidden="true" class
 <p>打开官网，可以按照选择安装方式（pip , conda, source）和 python版本，cuda版本来进行安装，由于特殊的网络国情，一般是打不开，或者是无法查看 run the command 之后的指令的。</p>
 <p>你会发现上面安装特别慢，强烈建议使用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
 <pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> torch<span class="token operator">==</span>1.1.0 torchvision<span class="token operator">==</span>0.3.0 -i https://pypi.tuna.tsinghua.edu.cn/simple<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果已经安装torch，仅仅想更新环境，pip升级torch命令如下，注意，<strong>如果不像上面指定版本，将更到最新版本！</strong>：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> --upgrade torch torchvision -i https://pypi.tuna.tsinghua.edu.cn/simple<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><a href="https://www.pytorchtutorial.com/pytorch-installation-commands/" target="_blank" rel="noopener">安装pytorch命令合集</a>.</p>
 <h4 id="配置-ssh-远程连接"><a href="#配置-ssh-远程连接" class="headerlink" title="配置 ssh 远程连接"></a>配置 ssh 远程连接</h4><p>1）安装 open-ssh</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">apt-get</span> <span class="token function">install</span> openssh-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -665,8 +667,8 @@ tf<span class="token punctuation">.</span>__path__<span aria-hidden="true" class
 <p>原因是显卡用的RTX 2080Ti，CUDA就要装10以上，这个时候pytorch不能直接用pip装，要通过：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> https://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>发现速度实在太慢！！于是我们考虑离线安装：</p>
-<p>注意控制台出现的下载路径，手动下载：</p>
-<p>到官网下载torch1.0：<a href="https://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl" target="_blank" rel="noopener">https://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl</a> ，将本地文件上传到服务器指定位置，路径换到压缩包所在位置，在控制台输入指令：</p>
+<p>注意<strong>上面控制台出现的下载路径</strong>，复制到浏览器，手动下载：</p>
+<p>如，到指定路径下载torch1.0：<a href="https://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl" target="_blank" rel="noopener">https://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-linux_x86_64.whl</a> ，将本地文件上传到服务器指定位置，路径换到压缩包所在位置，在控制台输入指令：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> torch-1.0.0-cp36-cp36m-linux_x86_64.whl
 pip3 <span class="token function">install</span> torchvision<span class="token operator">==</span>0.2.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>这样就安装好啦，然后测试一下：</p>
