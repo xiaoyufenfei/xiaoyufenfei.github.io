@@ -565,7 +565,8 @@ vim vimrc
 </blockquote>
 <h5 id="查看-GPU-使用情况"><a href="#查看-GPU-使用情况" class="headerlink" title="查看 GPU 使用情况"></a>查看 GPU 使用情况</h5><pre class="line-numbers language-bash"><code class="language-bash">nvidia-smi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <blockquote>
-<h5 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h5></blockquote>
+<p>进程</p>
+</blockquote>
 <h5 id="查看所有进程"><a href="#查看所有进程" class="headerlink" title="查看所有进程"></a>查看所有进程</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">ps</span> -ef<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h5 id="筛选进程"><a href="#筛选进程" class="headerlink" title="筛选进程"></a>筛选进程</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">ps</span> -ef <span class="token operator">|</span> <span class="token function">grep</span> python<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h5 id="根据名称强制杀死进程"><a href="#根据名称强制杀死进程" class="headerlink" title="根据名称强制杀死进程"></a>根据名称强制杀死进程</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">ps</span> -ef <span class="token operator">|</span> <span class="token function">grep</span> python <span class="token operator">|</span> <span class="token function">cut</span> -c 9-15 <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token function">kill</span> -9<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
