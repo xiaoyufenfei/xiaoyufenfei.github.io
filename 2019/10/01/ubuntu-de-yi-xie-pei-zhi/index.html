@@ -543,21 +543,26 @@ vim vimrc
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">tar</span> -zxvf *.tar.gz            <span class="token comment" spellcheck="true"># 解压命令</span>
 <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> ***    <span class="token comment" spellcheck="true"># 安装命令</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <blockquote>
-<h5 id="系统信息"><a href="#系统信息" class="headerlink" title="系统信息"></a>系统信息</h5></blockquote>
+<p>系统信息</p>
+</blockquote>
 <h5 id="查看系统版本"><a href="#查看系统版本" class="headerlink" title="查看系统版本"></a>查看系统版本</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /proc/version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <blockquote>
-<h5 id="CPU信息"><a href="#CPU信息" class="headerlink" title="CPU信息"></a>CPU信息</h5></blockquote>
+<p>CPU信息</p>
+</blockquote>
 <h5 id="查看CPU信息"><a href="#查看CPU信息" class="headerlink" title="查看CPU信息"></a>查看CPU信息</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /proc/cpuinfo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <blockquote>
-<h5 id="内存信息"><a href="#内存信息" class="headerlink" title="内存信息"></a>内存信息</h5></blockquote>
+<p>内存信息</p>
+</blockquote>
 <h5 id="查看内存及用量（M为单位）"><a href="#查看内存及用量（M为单位）" class="headerlink" title="查看内存及用量（M为单位）"></a>查看内存及用量（M为单位）</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">free</span> -m<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h5 id="查看内存及用量（G为单位）"><a href="#查看内存及用量（G为单位）" class="headerlink" title="查看内存及用量（G为单位）"></a>查看内存及用量（G为单位）</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">free</span> -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <blockquote>
-<h5 id="硬盘用量"><a href="#硬盘用量" class="headerlink" title="硬盘用量"></a>硬盘用量</h5></blockquote>
+<p>硬盘用量</p>
+</blockquote>
 <h5 id="查看各分区使用情况"><a href="#查看各分区使用情况" class="headerlink" title="查看各分区使用情况"></a>查看各分区使用情况</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">df</span> -h<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h5 id="查看当前目录文件及文件夹大小"><a href="#查看当前目录文件及文件夹大小" class="headerlink" title="查看当前目录文件及文件夹大小"></a>查看当前目录文件及文件夹大小</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">du</span> -sh *<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <blockquote>
-<h5 id="GPU信息"><a href="#GPU信息" class="headerlink" title="GPU信息"></a>GPU信息</h5></blockquote>
+<p>GPU信息</p>
+</blockquote>
 <h5 id="查看-GPU-使用情况"><a href="#查看-GPU-使用情况" class="headerlink" title="查看 GPU 使用情况"></a>查看 GPU 使用情况</h5><pre class="line-numbers language-bash"><code class="language-bash">nvidia-smi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <blockquote>
 <h5 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h5></blockquote>
@@ -565,7 +570,8 @@ vim vimrc
 <h5 id="筛选进程"><a href="#筛选进程" class="headerlink" title="筛选进程"></a>筛选进程</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">ps</span> -ef <span class="token operator">|</span> <span class="token function">grep</span> python<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h5 id="根据名称强制杀死进程"><a href="#根据名称强制杀死进程" class="headerlink" title="根据名称强制杀死进程"></a>根据名称强制杀死进程</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">ps</span> -ef <span class="token operator">|</span> <span class="token function">grep</span> python <span class="token operator">|</span> <span class="token function">cut</span> -c 9-15 <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token function">kill</span> -9<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <blockquote>
-<h5 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h5></blockquote>
+<p>用户</p>
+</blockquote>
 <h5 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> adduser username<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h5 id="添加用户并设置目录"><a href="#添加用户并设置目录" class="headerlink" title="添加用户并设置目录"></a>添加用户并设置目录</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> adduser username --home /home/username<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h5 id="将用户设置超级用户组（如添加到-sudo-用户组）"><a href="#将用户设置超级用户组（如添加到-sudo-用户组）" class="headerlink" title="将用户设置超级用户组（如添加到 sudo 用户组）"></a>将用户设置超级用户组（如添加到 sudo 用户组）</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">usermod</span> -aG <span class="token function">sudo</span> username<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
