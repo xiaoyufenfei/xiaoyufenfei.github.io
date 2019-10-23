@@ -431,7 +431,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.5k
+                        3.6k
                     </div>
                     
 
@@ -675,13 +675,15 @@ tf<span class="token punctuation">.</span>__path__<span aria-hidden="true" class
 pip3 <span class="token function">install</span> torchvision<span class="token operator">==</span>0.2.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><strong>方案三：</strong> <strong>以上两种方案纯属呵呵</strong>🙂，强烈建议使用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener"><strong>国内pypi源加速</strong></a> , 直接安装pytorch最新版本，最新版本做了诸多优化！<strong>通过pypi镜像安装</strong>速度超快啊  ★★★★★</p>
 <pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> torch torchvision -i https://pypi.tuna.tsinghua.edu.cn/simple<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这样就安装好啦，然后测试一下，会输出<code>torch版本1.2.0，torchvision版本0.4.0</code>：</p>
-<pre class="line-numbers language-python"><code class="language-python">python
+<p>这样就安装好啦，然后逐行输入以下命令，测试会输出<code>torch版本1.2.0，torchvision版本0.4.0</code>：</p>
+<pre class="line-numbers language-python"><code class="language-python">python 
 <span class="token keyword">import</span> torch<span class="token punctuation">,</span>torchvision
-torch<span class="token punctuation">.</span>__version__
-torchvision<span class="token punctuation">.</span>__version__
-torch<span class="token punctuation">.</span>__path__
-torchvision<span class="token punctuation">.</span>__path__<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+torch<span class="token punctuation">.</span>__version__           <span class="token punctuation">(</span>查看torch版本<span class="token punctuation">)</span>
+torchvision<span class="token punctuation">.</span>__version__     <span class="token punctuation">(</span>查看torchvision版本<span class="token punctuation">)</span>
+torch<span class="token punctuation">.</span>__path__              <span class="token punctuation">(</span>查看torch安装路径<span class="token punctuation">)</span>    
+torchvision<span class="token punctuation">.</span>__path__        <span class="token punctuation">(</span>查看torchvision安装路径<span class="token punctuation">)</span>
+torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token punctuation">(</span>查看本机CUDA是否可用<span class="token punctuation">)</span>
+torch<span class="token punctuation">.</span>version<span class="token punctuation">.</span>cuda          <span class="token punctuation">(</span>查看torch版本对应的CUDA版本，本机安装不可低于此CUDA版本<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>RTX 2080Ti，CUDA要安装10以上，否则报错，原因详见：</strong></p>
 <ul>
 <li><a href="https://discuss.pytorch.org/t/cuda-runtime-error-11/30080/13" target="_blank" rel="noopener">https://discuss.pytorch.org/t/cuda-runtime-error-11/30080/13</a></li>
