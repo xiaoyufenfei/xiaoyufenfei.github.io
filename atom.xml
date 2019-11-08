@@ -125,12 +125,12 @@
     <link href="http://xiaoyufenfei.github.io/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/"/>
     <id>http://xiaoyufenfei.github.io/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/</id>
     <published>2019-09-11T00:30:00.000Z</published>
-    <updated>2019-09-19T10:10:38.866Z</updated>
+    <updated>2019-11-08T14:04:07.873Z</updated>
     
     <summary type="html">
     
       &lt;h4 id=&quot;本节详细说明一下最新GPU深度学习平台环境配置&quot;&gt;&lt;a href=&quot;#本节详细说明一下最新GPU深度学习平台环境配置&quot; class=&quot;headerlink&quot; title=&quot;本节详细说明一下最新GPU深度学习平台环境配置&quot;&gt;&lt;/a&gt;本节详细说明一下最新GPU深度学习平台环境配置&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Ubuntu16+RTX2080Ti+CUDA10+Python3.6+Pytorch1.2&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Ubuntu16+RTX2080Ti+CUDA10.0+Python3.6++Tensorflow1.13.1+Pytorch1.3.0&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
