@@ -585,12 +585,12 @@ members <span class="token function">sudo</span><span aria-hidden="true" class="
 <pre class="line-numbers language-python"><code class="language-python">$ nohup python test<span class="token punctuation">.</span>py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这样执行的时候会将代码放在服务器后台执行，你的终端是看不到运行过程的，期间运行的结果（代码运行过程中打印出来的）会在一个生成的<strong>nohup.out</strong>文件中保存。</p>
 <p><strong>第二种 screen</strong></p>
-<p>后来接触到了screen命令，觉得着实好用，在这里<strong>极力推荐</strong>。</p>
+<p>后来接触到了screen命令，觉得着实好用，在这里<strong><a href="https://www.cnblogs.com/quan-coder/p/9857883.html" target="_blank" rel="noopener">极力推荐</a></strong>。</p>
 <p>可以简单的认为用这个命令你可以为不同的任务开不同的窗口，这个窗口之间是可以切换的，同时，窗口和你的会话连接基本上没有任何区别，这样你可以在开一个连接的时候同时干多件事情，并且在终端看得到运行过程的同时而不会由于断网而导致代码停止运行。其常用命令如下：</p>
 <pre class="line-numbers language-text"><code class="language-text">screen -S name #创建一个窗口，并且为这个窗口命名
 $screen -S yolo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>当你执行完以上命令后,就会自动跳入名为yolo的窗口，在这个窗口里可以干你想干的事情。</p>
-<p>当你不想呆在这个窗口时，你可以通过快捷键Ctrl+a+D断开这个窗口的连接而回到连接会话界面。即显示如下</p>
+<p>当你不想呆在这个窗口时，你可以通过快捷键<code>Ctrl+a+D</code>断开这个窗口的连接而回到连接会话界面。即显示如下</p>
 <pre class="line-numbers language-text"><code class="language-text">[detached from 28113.yolo]
 user@ubuntu-Super-Server:~/code$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>说明从yolo这个窗口断开回到了会话界面。但是这个断开只是不显示那个窗口，而窗口对应的任务是在后台运行的。</p>
