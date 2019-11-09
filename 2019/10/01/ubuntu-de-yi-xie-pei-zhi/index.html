@@ -437,14 +437,14 @@ su">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.9k
+                        2.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        7 分
+                        10 分
                     </div>
                     
                 
@@ -585,7 +585,7 @@ members <span class="token function">sudo</span><span aria-hidden="true" class="
 <pre class="line-numbers language-python"><code class="language-python">$ nohup python test<span class="token punctuation">.</span>py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这样执行的时候会将代码放在服务器后台执行，你的终端是看不到运行过程的，期间运行的结果（代码运行过程中打印出来的）会在一个生成的<strong>nohup.out</strong>文件中保存。</p>
 <p><strong>第二种 screen</strong></p>
-<p>后来接触到了screen命令，觉得着实好用，在这里<strong><a href="https://www.cnblogs.com/quan-coder/p/9857883.html" target="_blank" rel="noopener">极力推荐</a></strong>。</p>
+<p>后来接触到了screen命令，觉得着实好用，在这里 <strong><a href="https://www.cnblogs.com/quan-coder/p/9857883.html" target="_blank" rel="noopener">安装参考</a></strong>。</p>
 <p>可以简单的认为用这个命令你可以为不同的任务开不同的窗口，这个窗口之间是可以切换的，同时，窗口和你的会话连接基本上没有任何区别，这样你可以在开一个连接的时候同时干多件事情，并且在终端看得到运行过程的同时而不会由于断网而导致代码停止运行。其常用命令如下：</p>
 <pre class="line-numbers language-text"><code class="language-text">screen -S name #创建一个窗口，并且为这个窗口命名
 $screen -S yolo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -609,6 +609,88 @@ There are screens on:
 There is a screen on:
     28113.yolo    (2017年11月27日 19时57分26秒)    (Detached)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>总结一下，screen可以实现代码在后台运行时的可视化，同时，能在开一个会话连接时创建多个窗口处理不同的任务。用起来也很方便。</p>
+<p><strong>第三种 Tmux</strong> :  <strong>强烈推荐用tmux 👍</strong> </p>
+<h6 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h6><blockquote>
+<p> tmux 是一个优秀的终端复用器类自由软件，功能类似 GNU Screen，但使用 BSD 许可发布。用户可以通过 tmux 在一个终端内管理多个分离的会话，窗口及面板，对于同时使用多个命令行，或多个任务时非常方便。 </p>
+</blockquote>
+<h6 id="功能特点"><a href="#功能特点" class="headerlink" title="功能特点"></a>功能特点</h6><ul>
+<li><p>一个虚拟终端可以管理多个会话，窗口和面板</p>
+</li>
+<li><p>支持分屏，同时处理多个操作</p>
+</li>
+<li><p>窗口、面板可以在会话间自由移动，切换</p>
+</li>
+<li><p>丰富灵活的状态行展示</p>
+</li>
+<li><p>支持自定义快捷键，依照个人习惯配置令操作更高效</p>
+</li>
+<li><p>不受断网影响，避免丢失重要工作进度</p>
+</li>
+<li><p>结对编程，方便演示与协作</p>
+</li>
+<li><p>自带复制粘贴缓冲区管理</p>
+</li>
+<li><p>脚本化配置，可配置多种操作环境</p>
+</li>
+</ul>
+<h6 id="层次结构"><a href="#层次结构" class="headerlink" title="层次结构"></a>层次结构</h6><p><img src="/2019/10/01/ubuntu-de-yi-xie-pei-zhi/tmux.PNG" alt></p>
+<p>tmux的主要元素分为三层：</p>
+<ul>
+<li>Session 一组窗口的集合，通常用来概括同一个任务。session可以有自己的名字便于任务之间的切换。</li>
+<li>Window 单个可见窗口。Windows有自己的编号，也可以认为和ITerm2中的Tab类似。</li>
+<li>Pane 窗格，被划分成小块的窗口，类似于Vim中 C-w +v 后的效果。</li>
+</ul>
+<h6 id="安装tmux"><a href="#安装tmux" class="headerlink" title="安装tmux"></a>安装tmux</h6><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> tmux<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h6 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h6><p> 首先在tmux会话中使用的快捷键都需要一个前缀来激活，前缀默认为Ctrl+b（即：在按快捷键之前需要按一下前缀）。 </p>
+<h6 id="查询所有会话（Session）"><a href="#查询所有会话（Session）" class="headerlink" title="查询所有会话（Session）"></a>查询所有会话（Session）</h6><p> 在命令行输入下列命令查询当前所有会话。 </p>
+<pre class="line-numbers language-bash"><code class="language-bash">tmux <span class="token function">ls</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p> 你会发现no server running on /private/tmp/tmux-501/default，这是因为我们还没有创建会话（Session）。 </p>
+<h6 id="创建会话（Session"><a href="#创建会话（Session" class="headerlink" title="创建会话（Session)"></a>创建会话（Session)</h6><pre class="line-numbers language-bash"><code class="language-bash">tmux new -s session-name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p> 通过上述命令新建一个有特定名称的会话。 一般情况下我们不会使用下列命令创建不指定名字的会话。 </p>
+<pre class="line-numbers language-bash"><code class="language-bash">tmux new<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h6 id="断开会话（Session）"><a href="#断开会话（Session）" class="headerlink" title="断开会话（Session）"></a>断开会话（Session）</h6><p> 使用下列命令断开当前会话（断开会话并不影响会话中运行的程序，断开后还可以重新连接） </p>
+<pre class="line-numbers language-bash"><code class="language-bash">tmux detach<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p> 或者使用tmux中的快捷键 </p>
+<pre class="line-numbers language-bash"><code class="language-bash">Ctrl+b d<span class="token punctuation">(</span>即先使用Ctrl+b快捷键前缀，然后再按d<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h6 id="重新连接会话（Session）"><a href="#重新连接会话（Session）" class="headerlink" title="重新连接会话（Session）"></a>重新连接会话（Session）</h6><p> 在命令行输入tmux a即可快速连接第一个所有会话中的第一个。 </p>
+<pre class="line-numbers language-bash"><code class="language-bash">tmux a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p> 或者通过会话名连接该一个会话 </p>
+<pre class="line-numbers language-bash"><code class="language-bash">tmux a -t session-name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h6 id="关闭会话"><a href="#关闭会话" class="headerlink" title="关闭会话"></a>关闭会话</h6><p> 通过下列命令关闭会话后，会话中的程序也会全部关闭。 </p>
+<pre class="line-numbers language-bash"><code class="language-bash">tmux kill-session -t session-name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p> 当然你也可以通过直接按Ctrl+d关闭会话、窗口或窗格。 </p>
+<h6 id="tmux中的快捷键参考"><a href="#tmux中的快捷键参考" class="headerlink" title="tmux中的快捷键参考"></a>tmux中的快捷键参考</h6><p> 注意以下快捷键适用于tmux会话中，使用前皆需要按下快捷键前缀Ctrl+b。 </p>
+<h6 id="帮助"><a href="#帮助" class="headerlink" title="帮助"></a>帮助</h6><ul>
+<li>？ 获取帮助信息 </li>
+</ul>
+<h6 id="会话（Session）管理"><a href="#会话（Session）管理" class="headerlink" title="会话（Session）管理"></a>会话（Session）管理</h6><ul>
+<li>s 列出所有会话</li>
+<li>$ 重命名当前的会话</li>
+<li>d 断开当前的会话 </li>
+</ul>
+<h6 id="窗口（Window）管理"><a href="#窗口（Window）管理" class="headerlink" title="窗口（Window）管理"></a>窗口（Window）管理</h6><ul>
+<li>c 创建一个新窗口</li>
+<li>, 重命名当前窗口</li>
+<li>w 列出所有窗口</li>
+<li>% 水平分割窗口</li>
+<li>“ 竖直分割窗口</li>
+<li>n 选择下一个窗口</li>
+<li>p 选择上一个窗口</li>
+<li>0<del>9 选择0</del>9对应的窗口 </li>
+</ul>
+<h6 id="窗格（Pane）管理"><a href="#窗格（Pane）管理" class="headerlink" title="窗格（Pane）管理"></a>窗格（Pane）管理</h6><ul>
+<li>% 创建一个水平窗格</li>
+<li>“ 创建一个竖直窗格</li>
+<li>q 显示窗格的编号</li>
+<li>o 在窗格间切换</li>
+<li>} 与下一个窗格交换位置</li>
+<li>{ 与上一个窗格交换位置</li>
+<li>! 在新窗口中显示当前窗格</li>
+<li>x 关闭当前窗格 </li>
+</ul>
+<h6 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h6><ul>
+<li>t 在当前窗格显示时间 </li>
+</ul>
 
             </div>
             <hr/>
@@ -1080,7 +1162,7 @@ There is a screen on:
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">18.4k</span>
+                <span class="white-color">19.7k</span>
             
 
             

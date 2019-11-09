@@ -433,14 +433,14 @@ Ubuntu16+RTX2080Ti+CUDA10.0+Python3.6++Tensorflow1.13.1+Pytorch1.3.0
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3k
+                        3.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        12 分
+                        14 分
                     </div>
                     
                 
@@ -657,9 +657,23 @@ torchvision.__version__
 torch.__path__
 torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>以上便是 <code>Ubuntu 16.04 + RTX 2080 Ti + Python 3.6 + CUDA 10.0 + cuDNN 7.4 + TensorFlow 1.13.1 + Pytorch 1.3.0</code>等 完整环境配置过程。</p>
+<h4 id="终端复用工具-Tmux"><a href="#终端复用工具-Tmux" class="headerlink" title="终端复用工具 Tmux"></a>终端复用工具 Tmux</h4><blockquote>
+<p> <strong>Tmux</strong> 的全称是 <strong>T</strong>erminal <strong>MU</strong>tiple<strong>X</strong>er，及终端复用软件。顾名思义，它的主要功能就是在你关闭终端窗口之后保持进程的运行，此外 Tmux 的另一个重大功能就是分屏 .</p>
+</blockquote>
+<h5 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h5><blockquote>
+<p>很多时候我们需要通过SSH连接服务器进行一些操作，费了好长时间调好了程序，一顿饭的功夫SSH超时了(broken pipe)，重新连上去正在运行的程序也都没了，一切又得从头再来。这个时候你就非常需要用到tmux了，用tmux在服务器上创建一个会话（Session），在该会话中进行操作，你可以随时随地断开和重新连接会话（Session），即便是SSH中断了你在远程服务器上的工作状态也可以持久化地保存。</p>
+</blockquote>
+<h5 id="安装及使用方法"><a href="#安装及使用方法" class="headerlink" title="安装及使用方法"></a>安装及使用方法</h5><p> <a href="https://xiaoyufenfei.github.io/2019/10/01/ubuntu-de-yi-xie-pei-zhi/"><strong>和枯燥的终端说再见吧 → 终端复用工具 Tmux</strong></a></p>
+<h5 id="Tmux结构"><a href="#Tmux结构" class="headerlink" title="Tmux结构"></a>Tmux结构</h5><p><img src="/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/tmux_2.png" alt></p>
+<h5 id="vim端"><a href="#vim端" class="headerlink" title="vim端"></a>vim端</h5><blockquote>
+<p> tmux new -s name　　创建name<br> tmux attach -t name　　重启name<br> tmux ls 　　列出所有session<br> tmux kill-server　　删除所有session<br> tmux a 　　进入最近的会话<br> tmux a -t 会话名　　进入指定会话<br> tumx kill-session -t 会话名　　干掉指定会话</p>
+</blockquote>
+<h5 id="tmux中-命令前缀ctrl-b"><a href="#tmux中-命令前缀ctrl-b" class="headerlink" title="tmux中(命令前缀ctrl+b)"></a>tmux中(命令前缀ctrl+b)</h5><blockquote>
+<p> d 　　退出当前session<br> s 　　切换session<br> c 　　创建新窗口<br> 0-9 　　切换指定窗口<br> w 　　窗口列表<br> %　　竖直分屏<br> “　　左右分屏<br> x　　关闭当前屏幕 </p>
+</blockquote>
 <h4 id="他山之石："><a href="#他山之石：" class="headerlink" title="他山之石："></a>他山之石：</h4><ul>
-<li><a href="https://tensorflow.google.cn/install/source" target="_blank" rel="noopener">Ubuntu下安装CUDA10.0遇到的问题(一定要注意自己版本)</a></li>
-<li><a href="https://blog.csdn.net/omodao1/article/details/83241074" target="_blank" rel="noopener">Tensorflow不同版本要求与CUDA及cuDNN版本对应关系</a></li>
+<li><a href="https://blog.csdn.net/weixin_42718092/article/details/86016973" target="_blank" rel="noopener">Ubuntu下安装CUDA10.0遇到的问题(一定要注意自己版本)</a></li>
+<li><a href="https://tensorflow.google.cn/install/source" target="_blank" rel="noopener">Tensorflow不同版本要求与CUDA及cuDNN版本对应关系</a></li>
 <li><a href="https://www.jianshu.com/p/6f3871877b59" target="_blank" rel="noopener">ubuntu 18.04 安装后基本配置以及常用软件安装</a></li>
 <li><a href="https://dl.ypw.io/" target="_blank" rel="noopener">深度学习工程师生存指南</a></li>
 </ul>
@@ -1139,7 +1153,7 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">18.4k</span>
+                <span class="white-color">19.7k</span>
             
 
             
