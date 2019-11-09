@@ -4,13 +4,13 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="通道注意力机制-SENet, NJUPT CV Deep-Learning WangYu">
+    <meta name="keywords" content="CV秋招准备的建议, NJUPT CV Deep-Learning WangYu">
     <meta name="baidu-site-verification" content>
     <meta name="google-site-verification" content>
-    <meta name="description" content="SENetarXiv-Link： Squeeze-and-Excitation NetworksJie Hu, Li Shen, Gang Sun
+    <meta name="description" content="本博文记录一些计算机视觉(CV) 岗位 秋招应聘准备的建议 ✈✈✈
  
 
-摘要卷积神经网络顾名思义就是依赖卷积操作，使用局部感受区域（local recepti">
+ 秋招算法岗真是有点狠，菜的菜的出奇，强的强的可怕（大佬芸芸），总结自己和其他人的面试经验，列出一些必须要看的东西，至于特别详细的内容，暂时抽不出时间来写了（毕业论文">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>通道注意力机制-SENet | 王雨的博客</title>
+    <title>CV秋招准备的建议 | 王雨的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -275,13 +275,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        通道注意力机制-SENet
+                        CV秋招准备的建议
                     </div>
                 </div>
             </div>
@@ -392,8 +392,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/计算机视觉/" target="_blank">
-                                <span class="chip bg-color">计算机视觉</span>
+                            <a href="/tags/应聘求职/" target="_blank">
+                                <span class="chip bg-color">应聘求职</span>
                             </a>
                         
                     </div>
@@ -404,8 +404,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Paper-Reading/" class="post-category" target="_blank">
-                                Paper Reading
+                            <a href="/categories/应聘求职/" class="post-category" target="_blank">
+                                应聘求职
                             </a>
                         
                     </div>
@@ -416,7 +416,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-09-11
+                    2019-11-02
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -431,14 +431,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.3k
+                        575
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        8 分
+                        1 分
                     </div>
                     
                 
@@ -454,42 +454,29 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="SENet"><a href="#SENet" class="headerlink" title="SENet"></a>SENet</h2><p>arXiv-Link： <a href="https://arxiv.org/abs/1709.01507" target="_blank" rel="noopener">Squeeze-and-Excitation Networks</a><br>Jie Hu, Li Shen, Gang Sun</p>
+                <p>本博文记录一些计算机视觉(CV) 岗位 秋招应聘准备的建议 ✈✈✈</p>
 <a id="more"></a> 
 
-<h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h4><p>卷积神经网络顾名思义就是依赖卷积操作，使用局部感受区域（local receptive field）的思想融合空间信息和通道信息来提取包含信息的特征。有很多工作从增强空间维度编码的角度来提升网络的表示能力，本文主要聚焦于通道维度，并提出一种新的结构单元——“Squeeze-and-Excitation(SE)”单元，对通道间的依赖关系进行建模，可以自适应的调整各通道的特征响应值。如果将SE block添加到之前的先进网络中，只会增加很小的计算消耗，但却可以极大地提升网络性能。依靠SENet作者获得了ILSVRC2017分类任务的第一名，top-5错误率为2.251%。</p>
-<h4 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h4><p>每个卷积层有若干滤波器，可以学习表达包含所有通道的局部空间连接模式。也就是说，卷积滤波器提取局部感受区域中的空间和通道的融合信息。再加上非线性激活层和降采样层，CNN可以获得具有全局感受区域的分层模式来作为图像的描述。最近的一些工作表明，可以通过加入有助于获取空间相关性的学习机制来改善网络的性能，而且不需要额外的监督。例如Inception架构，通过在模块中加入多尺度处理来提高性能。另有探索更好的空间相关性的模型或者添加空间注意力的一些工作。</p>
-<p>与上述方法不同，本文主要探索网络架构设计的另一个方面——通道关联性。本文提出一种新的网络单元——“Squeeze-and-Excitation(SE)” block，希望通过对各通道的依赖性进行建模以提高网络的表示能力，并且可以对特征进行逐通道调整，这样网络就可以学习通过全局信息来有选择性的加强包含有用信息的特征并抑制无用特征。<br>SE block的基本结构见图1。第一步squeeze操作，将各通道的全局空间特征作为该通道的表示，形成一个通道描述符；第二步excitation操作，学习对各通道的依赖程度，并根据依赖程度的不同对特征图进行调整，调整后的特征图就是SE block的输出。</p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-1.png" alt></p>
-<p>前面层中的SE block以类别无关（class agnostic）的方式增强可共享的低层表示的质量。越后面的层SE block越来越类别相关。SE block重新调整特征的益处可以在整个网络中积累。SE block设计简单，可以很容易地加入到已有的网络中，只增加少量的模型复杂度和计算开支，另外对不同数据集的泛化能力较强。作者依靠SENet取得了ILSVRC2017分类任务的第一名。官方实现（Caffe）源码地址：<a href="https://github.com/hujie-frank/SENet" target="_blank" rel="noopener">SENet官方实现</a> 。</p>
-<h4 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h4><p><strong>Deep architectures</strong><br>有很多工作通过调整卷积神经网络架构使模型更容易地学习深层特征以提升模型性能。VGG和Inception网络证明可以通过增加深度来提升性能。Batch normalization (BN)在网络中添加可以调节输入数据的单元来稳定学习过程，改善梯度在网络中的传播，使得更深层的网络也可以工作。<a href="https://github.com/binLearning/caffe_toolkit/tree/master/ResNet" target="_blank" rel="noopener">ResNet</a>、<a href="https://github.com/binLearning/caffe_toolkit/tree/master/ResNet-v2" target="_blank" rel="noopener">ResNet-v2</a>在网络中加入恒等映射形式的跳跃连接，使网络学习残差函数，极大推进了网络架构向更深层的发展。<a href="https://github.com/binLearning/caffe_toolkit/tree/master/DenseNet" target="_blank" rel="noopener">DenseNet</a>、<a href="https://github.com/binLearning/caffe_toolkit/tree/master/DPN" target="_blank" rel="noopener">DPN</a>通过调整网络各层间的连接机制来提升深层网络的学习和表示性能。<br>另一个方向是调整网络中模块的形式。分组卷积（grouped convolutions）可以用于增加基数（cardinality），如Deep roots、<a href="https://github.com/binLearning/caffe_toolkit/tree/master/ResNeXt" target="_blank" rel="noopener">ResNeXt</a>中所示，网络可以学习到更丰富的表示。多分支卷积（multi-branch convolutions）可以视为分组卷积的泛化，网络模块可以进行更灵活多变的操作，如Inception系列。跨通道相关是一种新的特征组合方式，可以独立于空间结构（如Xception），或者使用1x1卷积进行处理（如NIN），一般来说这些工作主要是为了降低模型和计算复杂度。这种方法的前提假设是通道是实例无关（instance-agnostic）的，也就是说输出对于输入数据各通道的依赖性是相同的，不是类别相关的。与之相反，本文提出一种新的机制，使用全局信息对各通道动态的非线性的依赖性进行建模，可以改善学习过程并提升网络的表示能力。</p>
-<p><strong>Attention and gating mechanisms</strong><br>注意力机制（attention）引导计算资源偏向输入信号中信息量最大的部分，近几年开始大量用于深度神经网络中，在很多任务中对性能有极大提升。它一般是和门限函数（如softmax、sigmoid）或者序列方法联合使用。highway网络使用门限机制来调节快捷连接，Residual attention network for image classification中介绍了一种trunk-and-mask注意力机制用于沙漏模型（hourglass module），成功的用于语义分割任务。SE block是一种轻量级的门限机制，专门用于对各通道的关联性进行建模。</p>
-<h4 id="3-Squeeze-and-Excitation-Blocks"><a href="#3-Squeeze-and-Excitation-Blocks" class="headerlink" title="3. Squeeze-and-Excitation Blocks"></a>3. Squeeze-and-Excitation Blocks</h4><p>卷积层的输出并没有考虑对各通道的依赖性，本文的目标就是让网络有选择性的增强信息量大的特征，使得后续处理可以充分利用这些特征，并对无用特征进行抑制。</p>
-<h4 id="3-1-Squeeze-Global-Information-Embedding"><a href="#3-1-Squeeze-Global-Information-Embedding" class="headerlink" title="3.1 Squeeze: Global Information Embedding"></a>3.1 Squeeze: Global Information Embedding</h4><p>首先考察输出特征每个通道的信号，压缩（squeeze）全局空间信息为通道描述符，使用全局平均池化来生成各通道的统计量。</p>
-<h4 id="3-2-Excitation-Adaptive-Recalibration"><a href="#3-2-Excitation-Adaptive-Recalibration" class="headerlink" title="3.2 Excitation: Adaptive Recalibration"></a>3.2 Excitation: Adaptive Recalibration</h4><p>第二就是考察各通道的依赖程度，实现函数有两个标准：一是要灵活，二是要学习一个非互斥的关系，因为可能多个通道都会对结果有影响。本文使用带sigmoid激活函数的门限机制来实现。为了限制模型复杂度并增强泛化能力，门限机制中使用bottleneck形式的两个全连接层，第一个FC层降维至1/r，r为超参数，本文取16，具体见6.3实验。最后的sigmoid函数就是各通道的权重，根据输入数据调节各通道特征的权重，有助于增强特征的可分辨性。</p>
-<h4 id="3-3-Exemplars-SE-Inception-and-SE-ResNet"><a href="#3-3-Exemplars-SE-Inception-and-SE-ResNet" class="headerlink" title="3.3 Exemplars: SE-Inception and SE-ResNet"></a>3.3 Exemplars: SE-Inception and SE-ResNet</h4><p>在Inception网络和ResNet网络中加入SE block，具体见图2、图3。</p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-2.png" alt></p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-3.png" alt></p>
-<h4 id="4-Model-and-Computational-Complexity"><a href="#4-Model-and-Computational-Complexity" class="headerlink" title="4. Model and Computational Complexity"></a>4. Model and Computational Complexity</h4><p>对添加了SE block的网络的具体配置见表1。</p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-4.png" alt></p>
-<p>每个SE block中包含一个全局平均池化操作，两个小的全连接层，最后一个简单的逐通道缩放操作，全部合起来在ResNet-50的基础上增加了0.26%的计算量。新添加的参数量主要来自于两个全连接层，ResNet-50增加了约10%，大多数都是来自最后阶段，此时的通道维度很大。但是实验发现如果去掉最后阶段的SE block性能并没有太大影响，而新增加的参数量则会减小到约4%。</p>
-<h4 id="5-Implementation"><a href="#5-Implementation" class="headerlink" title="5. Implementation"></a>5. Implementation</h4><p>基本都是常规处理和训练设置。采用了Relay backpropagation for effective learning of deep convolutional neural networks中的数据平衡策略。</p>
-<h4 id="6-Experiments"><a href="#6-Experiments" class="headerlink" title="6. Experiments"></a>6. Experiments</h4><h4 id="6-1-ImageNet-Classification"><a href="#6-1-ImageNet-Classification" class="headerlink" title="6.1 ImageNet Classification"></a>6.1 ImageNet Classification</h4><p>本文实验的不同网络的配置见表2，训练曲线见图4-6。 </p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-5.png" alt></p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-6.png" alt></p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-7.png" alt></p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-8.png" alt></p>
-<p>在ImageNet验证集上不同网络的表现见表3。</p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-9.png" alt></p>
-<h4 id="6-2-Scene-Classification"><a href="#6-2-Scene-Classification" class="headerlink" title="6.2 Scene Classification"></a>6.2 Scene Classification</h4><p>不同网络的性能对比见表4。</p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-10.png" alt></p>
-<h4 id="6-3-Analysis-and-Discussion"><a href="#6-3-Analysis-and-Discussion" class="headerlink" title="6.3 Analysis and Discussion"></a>6.3 Analysis and Discussion</h4><p><strong>Reduction ratio</strong><br>3.2中讨论的降维系数是超参数，它不同取值对网络性能的影响见表5。</p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-11.png" alt></p>
-<p>为了权衡准确率与复杂度，本文选取r=16。<br><strong>The role of Excitation</strong><br>考察自门限（self-gating）excitation机制。选取四个类别（如图7），分别考察不同层中的SE block的平均激活值，其分布如图8所示。</p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-12.png" alt></p>
-<p><img src="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/Figure-13.png" alt></p>
-<p>通过观察图8中不同层SE block激活值的分布情况，发现1)前面层中的分布基本一样，说明这一阶段的特征是类别无关的；2)后续层中分布越来越类别相关，每个类别对特征由不同的选择；3)SE_5_2和SE_5_3中的分布也基本一致，说明这两层对网络重新调整的重要性不高，可以去掉这两层中的SE block以减少参数量，如第4章中所述。</p>
-<h4 id="7-Conclusion"><a href="#7-Conclusion" class="headerlink" title="7. Conclusion"></a>7. Conclusion</h4><p>SE block根据输入动态调整各通道的特征，增强网络的表示能力。另外也可以用于辅助网络修剪/压缩的工作。</p>
+<p> 秋招算法岗真是有点狠，菜的菜的出奇，强的强的可怕（大佬芸芸），总结自己和其他人的面试经验，列出一些必须要看的东西，至于特别详细的内容，暂时抽不出时间来写了（毕业论文时间紧迫）。</p>
+<ol>
+<li><p>刷题。建议是牛客网在线编程刷几遍《剑指 Offer》，然后总结一下再去刷 LeetCode，现状是无论面试多好，现场 coding 但凡挂一道，几乎就等于 GG 了。</p>
+</li>
+<li><p>编程语言。C/C++ 必备，因为现在都越来越要求算法落地了，Python 肯定是不够的，大部分的面试都会手撕 C++ 代码，以及相关知识点。</p>
+</li>
+<li><p>深度学习基础。大体可分为基础理（反向传播那一套）+ 激活函数 + CNN 基本原理 + 优化算法 + 常见训练问题，公式推导比较常见，而且有的会要求代码实现反向传播</p>
+</li>
+<li><p>经典结构。做 CV 的基本都离不开经典的分类模型，ResNet 系列、DenseNet 系列、Inception 系列、MobileNet 系列、ShuffleNet 系列等等，以及一些新的模型，比如 DetNet、HRNet 等等，还有 SE 结构等等，这里问的比较深，需要对细节很熟悉。</p>
+</li>
+<li><p>机器学习。SVM。。。这玩意真的会问，会让你推导，无论你用不用，其他的问的倒是不多。</p>
+</li>
+<li><p>分割 / 检测。分割和检测都会问，无论你是具体做哪个方向的，经典模型结构，比如 Unet，Yolo、SSD、Faster 以及后来的各种改进体，基本上问的很详细，需要对每个细节都懂。还有一个就是手撕 NMS 或者 IOU，以及各种常用的损失函数或者后来新提出的损失函数都会问。</p>
+</li>
+<li><p>概率。这也是很多面试官喜欢问的，出一些概率题。</p>
+</li>
+<li><p>运气。面试很玄学，运气不好遇到只针对你不会的点问，那几本就 GG。比如你说你不太会博弈论，那面试官就开始考你这些。。。</p>
+<p><strong>总结一句就是：算法岗问的会相对比较全，比较深，也比较细致，好好准备也不会很难。</strong> </p>
+</li>
+</ol>
 
             </div>
             <hr/>
@@ -648,9 +635,9 @@
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《通道注意力机制-SENet》
+                    《CV秋招准备的建议》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/09/11/tong-dao-zhu-yi-li-ji-zhi-senet/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/11/02/cv-qiu-zhao-zhun-bei-de-jian-yi/" property="cc:attributionName"
                rel="cc:attributionURL">
                 王雨
             </a> 采用
@@ -691,7 +678,7 @@
         repo: 'xiaoyufenfei.github.io',
         owner: 'xiaoyufenfei',
         admin: "xiaoyufenfei",
-        id: '2019-09-11T21-51-58',
+        id: '2019-11-02T17-10-47',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -712,46 +699,51 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/09/12/latex-zhuan-xie-lun-wen-chang-yong-ji-qiao-zong-jie/">
+                <a href="/2019/11/02/cv-qiu-zhao-zhun-bei-de-jian-yi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Latex撰写论文常用技巧总结">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="CV秋招准备的建议">
                         
-                        <span class="card-title">Latex撰写论文常用技巧总结</span>
+                        <span class="card-title">CV秋招准备的建议</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            写论文不得不时常与Latex打交道，这篇博文专门用来记录使用Latex撰写论文过程中遇到的一些技巧与心得.
+                            本博文记录一些计算机视觉(CV) 岗位 秋招应聘准备的建议 ✈✈✈
+ 
+
+ 秋招算法岗真是有点狠，菜的菜的出奇，强的强的可怕（大佬芸芸），总结自己和其他人的面试经验，列出一些必须要看的东西，至于特别详细的内容，暂时抽不出时间来写了（毕业论文
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-12
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/软件安装与配置/" class="post-category" target="_blank">
-                                    软件安装与配置
+                            <a href="/categories/应聘求职/" class="post-category" target="_blank">
+                                    应聘求职
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/软件安装与配置/" target="_blank">
-                        <span class="chip bg-color">软件安装与配置</span>
+                    <a href="/tags/应聘求职/" target="_blank">
+                        <span class="chip bg-color">应聘求职</span>
                     </a>
                     
                 </div>
@@ -765,31 +757,40 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/">
+                <a href="/2019/10/01/ubuntu-de-yi-xie-pei-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="深度学习GPU环境搭建-下篇">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Ubuntu的一些配置">
                         
-                        <span class="card-title">深度学习GPU环境搭建-下篇</span>
+                        <span class="card-title">Ubuntu的一些配置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            工欲善其事必先利其器！深度学习环境搭建-下篇, Ubuntu系统下RTX2080Ti深度学习环境配置.
+                            
+本博文记录一些常用的Ubuntu配置操作 ✈✈✈
+
+ 
+
+Ubuntu更新sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade 
+sudo reboot
+su
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-11
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-01
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/深度学习环境搭建/" class="post-category" target="_blank">
-                                    深度学习环境搭建
+                            <a href="/categories/Ubuntu配置/" class="post-category" target="_blank">
+                                    Ubuntu配置
                                 </a>
                             
                             
@@ -799,8 +800,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/深度学习环境搭建/" target="_blank">
-                        <span class="chip bg-color">深度学习环境搭建</span>
+                    <a href="/tags/Ubuntu配置/" target="_blank">
+                        <span class="chip bg-color">Ubuntu配置</span>
                     </a>
                     
                 </div>

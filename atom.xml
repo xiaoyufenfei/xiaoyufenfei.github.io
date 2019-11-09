@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xiaoyufenfei.github.io/"/>
-  <updated>2019-11-09T07:21:47.474Z</updated>
+  <updated>2019-11-09T07:28:47.783Z</updated>
   <id>http://xiaoyufenfei.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CV秋招准备的建议</title>
+    <link href="http://xiaoyufenfei.github.io/2019/11/02/cv-qiu-zhao-zhun-bei-de-jian-yi/"/>
+    <id>http://xiaoyufenfei.github.io/2019/11/02/cv-qiu-zhao-zhun-bei-de-jian-yi/</id>
+    <published>2019-11-02T09:10:47.000Z</published>
+    <updated>2019-11-09T07:28:47.783Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本博文记录一些计算机视觉(CV) 岗位 秋招应聘准备的建议 ✈✈✈&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="应聘求职" scheme="http://xiaoyufenfei.github.io/categories/%E5%BA%94%E8%81%98%E6%B1%82%E8%81%8C/"/>
+    
+    
+      <category term="应聘求职" scheme="http://xiaoyufenfei.github.io/tags/%E5%BA%94%E8%81%98%E6%B1%82%E8%81%8C/"/>
+    
+  </entry>
   
   <entry>
     <title>Ubuntu的一些配置</title>
