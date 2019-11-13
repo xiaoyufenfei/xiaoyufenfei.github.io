@@ -433,14 +433,14 @@ Ubuntu16+RTX2080Ti+CUDA10.0+Anaconda3+Python3.6+Tensorflow1.13.1+Pytorch1.3.0
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.5k
+                        4.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        18 分
+                        19 分
                     </div>
                     
                 
@@ -687,6 +687,11 @@ gedit .bashrc
 <span class="token comment" spellcheck="true"># 保存退出</span>
 <span class="token comment" spellcheck="true"># 更新配置文件</span>
 <span class="token function">source</span> .bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>特别说明：本文只针对单用户GPU环境及软件安装做了详细说明，如果是多个用户在一台多显卡服务器上作开发，则需要利用conda进行python虚拟环境的创建与管理，所以需要各个用户在自己的账户下独立安装Anaconda，并在当前用户中的.bashrc文件中将Anaconda路径改为本用户下安装的Anaconda路径，而不是root用户中的Anaconda路径。</strong></p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/52335679" target="_blank" rel="noopener">如何创建Anaconda虚拟环境解决Python和PyTorch版本不一致问题</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/75240449" target="_blank" rel="noopener">用conda创建python虚拟环境</a></li>
+</ul>
 <h4 id="6-安装TensorFlow-1-13-1"><a href="#6-安装TensorFlow-1-13-1" class="headerlink" title="6.安装TensorFlow 1.13.1"></a>6.安装TensorFlow 1.13.1</h4><p>到现在为止 Python 3.6、CUDA 10.0 和 cuDNN 7.14就已经安装好了，而且环境变量也配置好了，接下来我们直接安装 TensorFlow 1.13.1 即可。</p>
 <p>这里需要安装的是 TensorFlow 的 GPU 版本，命令如下：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> tensorflow-gpu<span class="token operator">==</span>1.13.1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -1242,7 +1247,7 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">23k</span>
+                <span class="white-color">23.2k</span>
             
 
             
