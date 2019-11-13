@@ -433,7 +433,7 @@ Ubuntu16+RTX2080Ti+CUDA10.0+Anaconda3+Python3.6+Tensorflow1.13.1+Pytorch1.3.0
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.4k
+                        4.5k
                     </div>
                     
 
@@ -664,7 +664,7 @@ Type <span class="token string">"help"</span>, <span class="token string">"copyr
 <h6 id="总结上面步骤，安装好CUDA、cuDNN、Anaconda后关键做到的两点："><a href="#总结上面步骤，安装好CUDA、cuDNN、Anaconda后关键做到的两点：" class="headerlink" title="总结上面步骤，安装好CUDA、cuDNN、Anaconda后关键做到的两点："></a>总结上面步骤，安装好CUDA、cuDNN、Anaconda后关键做到的两点：</h6><p> <strong>1、进入root用户，在root下配置环境变量，更新配置文件</strong> </p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">su</span> root
 <span class="token function">cd</span>
-<span class="token comment" spellcheck="true"># 回车</span>
+Enter <span class="token comment" spellcheck="true"># 回车</span>
 gedit .bashrc
 <span class="token comment" spellcheck="true"># 在文件末尾添加环境变量</span>
 <span class="token function">export</span> PATH<span class="token operator">=</span>/usr/local/anaconda3/bin<span class="token variable">${PATH:+:${PATH}</span><span class="token punctuation">}</span>
@@ -677,7 +677,7 @@ gedit .bashrc
 <p> <strong>2、然后配置普通用户的环境变量</strong> </p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">su</span> 普通用户名
 <span class="token function">cd</span>
-<span class="token comment" spellcheck="true"># 回车</span>
+Enter <span class="token comment" spellcheck="true"># 回车</span>
 gedit .bashrc
 <span class="token comment" spellcheck="true"># 在文件末尾添加环境变量</span>
 <span class="token function">export</span> PATH<span class="token operator">=</span>/usr/local/anaconda3/bin<span class="token variable">${PATH:+:${PATH}</span><span class="token punctuation">}</span>
@@ -748,7 +748,12 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
 <h5 id="tmux中-命令前缀ctrl-b"><a href="#tmux中-命令前缀ctrl-b" class="headerlink" title="tmux中(命令前缀ctrl+b)"></a>tmux中(命令前缀ctrl+b)</h5><blockquote>
 <p> d 　　退出当前session<br> s 　　切换session<br> c 　　创建新窗口<br> 0-9 　　切换指定窗口<br> w 　　窗口列表<br> %　　竖直分屏<br> “　　左右分屏<br> x　　关闭当前屏幕 </p>
 </blockquote>
-<h4 id="10-No-module-named-‘cv2’等python库解决方法及Python包更新方法"><a href="#10-No-module-named-‘cv2’等python库解决方法及Python包更新方法" class="headerlink" title="10. No module named ‘cv2’等python库解决方法及Python包更新方法"></a>10. No module named ‘cv2’等python库解决方法及Python包更新方法</h4><p>只要是缺少的python库文件，请善用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
+<h4 id="10-Windows全能终端神器MobaXterm安装"><a href="#10-Windows全能终端神器MobaXterm安装" class="headerlink" title="10.Windows全能终端神器MobaXterm安装"></a>10.Windows全能终端神器MobaXterm安装</h4><p>主要功能](<a href="https://mobaxterm.mobatek.net/)：" target="_blank" rel="noopener">https://mobaxterm.mobatek.net/)：</a></p>
+<blockquote>
+<p>支持各种连接SSH，X11，RDP，VNC，FTP，MOSH<br>支持Unix命令（bash，ls，cat，sed，grep，awk，rsync，…）<br>连接SSH终端后支持SFTP传输文件<br>各种丰富的插件（git/dig/aria2…）<br>可运行Windows或软件</p>
+</blockquote>
+<p><a href="https://mobaxterm.mobatek.net/download-home-edition.html" target="_blank" rel="noopener">官网下载地址</a> </p>
+<h4 id="11-No-module-named-‘cv2’等python库解决方法及Python包更新方法"><a href="#11-No-module-named-‘cv2’等python库解决方法及Python包更新方法" class="headerlink" title="11. No module named ‘cv2’等python库解决方法及Python包更新方法"></a>11. No module named ‘cv2’等python库解决方法及Python包更新方法</h4><p>只要是缺少的python库文件，请善用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
 <pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>当你需要更新python包时，还是那句话，请善用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">国内pypi源加速</a> , 速度超快啊！！！</p>
 <p>如：我当前需要更新pip</p>
@@ -1235,7 +1240,7 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">22.9k</span>
+                <span class="white-color">23k</span>
             
 
             
