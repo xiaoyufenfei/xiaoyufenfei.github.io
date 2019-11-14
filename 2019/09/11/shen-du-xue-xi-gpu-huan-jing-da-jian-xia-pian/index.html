@@ -433,14 +433,14 @@ Ubuntu16+RTX2080Ti+CUDA10.0+Anaconda3+Python3.6+Tensorflow1.13.1+Pytorch1.3.0
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.7k
+                        5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        19 分
+                        20 分
                     </div>
                     
                 
@@ -546,6 +546,23 @@ nvidia-smi<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
 <p><img src="/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/NVIDIA_SMI.PNG" alt></p>
 <p>不出意外说明显卡驱动成功安装，后面继续安装cuda.</p>
 <p>特别注意：<strong>如果系统重启之后出现重复登录的情况，多数情况下都是安装了错误版本的显卡驱动</strong>。需要下载对应本身机器安装的显卡版本。</p>
+<p> 上图是服务器上 <strong>GeForce RTX 2080 Ti</strong> 的信息，下面一一解读参数。<br> 上面的表格中的红褐色框中的信息与下面的二个框的信息是<strong>一一对应</strong>的： </p>
+<pre class="line-numbers language-bash"><code class="language-bash">GPU：GPU 编号；
+Name：GPU 型号；
+Persistence-M：持续模式的状态。持续模式虽然耗能大，但是在新的GPU应用启动时，花费的时间更少，这里显示的是off的状态；
+Fan：风扇转速，从0到100%之间变动；
+Temp：温度，单位是摄氏度；
+Perf：性能状态，从P0到P12，P0表示最大性能，P12表示状态最小性能（即 GPU 未工作时为P0，达到最大工作限度时为P12）。
+Pwr:Usage/Cap：能耗；
+Memory Usage：显存使用率；
+Bus-Id：涉及GPU总线的东西，domain:bus:device.function；
+Disp.A：Display Active，表示GPU的显示是否初始化；
+Volatile GPU-Util：浮动的GPU利用率；
+Uncorr. ECC：Error Correcting Code，错误检查与纠正；
+Compute M：compute mode，计算模式。
+下方的 Processes 表示每个进程对 GPU 的显存使用率。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  <strong>利用命令：nvidia-smi -L</strong> ： 用于列出所有可用的 NVIDIA 设备信息 </p>
+<p><img src="/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/NVIDIA_SMI_L.PNG" alt></p>
 <h4 id="3-安装CUDA10-0"><a href="#3-安装CUDA10-0" class="headerlink" title="3.安装CUDA10.0"></a>3.安装CUDA10.0</h4><p>1.卸载旧的CUDA</p>
 <p>这是因为如果您的显卡RTX2080，安装了CUDA 8.0 和 CUDNN 7.0.5或者CUDA9.0不能够正常使用，需要安装CUDA 10.0 和 CUDNN 7.4.2，所以要先卸载原来的CUDA。注意以下的命令都是在root用户下操作的。</p>
 <p>卸载CUDA很简单，主要执行的是CUDA自带的卸载脚本，请根据自己的cuda版本找到卸载脚本：</p>
@@ -1247,7 +1264,7 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">23.2k</span>
+                <span class="white-color">23.5k</span>
             
 
             
