@@ -457,10 +457,14 @@
                 <blockquote>
 <p>为了加速神经网络的训练，使用CPU训练速度很慢，所以使用CUDA和cuDNN对神经网络进行加速，在配置的过程中你会遇到很多坑，各种坑，网上也有很多教程但是实现起来各种ERROR，真心觉得累，经过多次实验做如下超全总结！！！</p>
 </blockquote>
-<h4 id="本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶"><a href="#本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶" class="headerlink" title="本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶"></a>本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶</h4><a id="more"></a> 
+<h4 id="本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶"><a href="#本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶" class="headerlink" title="本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶"></a>本节详细说明一下深度学习环境配置，深度学习GPU环境搭建全家桶</h4><blockquote>
+<p><strong>Ubuntu16.04+GTX1080Ti+CUDA9.0+Anaconda3+Python3.6+Tensorflow1.8.0+Pytorch1.1.0</strong></p>
+</blockquote>
+<a id="more"></a> 
 
 <blockquote>
 <p><strong>注意：RTX 2080 Ti显卡的环境安装过程略有不同，RTX 2080Ti，CUDA要安装10以上，请参考下篇博文。</strong></p>
+<p><strong>值得注意：如果安装了CUDA9.0，GPU版本Pytorch 最高只能安装到1.1.0这个版本，TF最高只能安装到1.12.0这个版本，请考虑后决定安装CUDA版本，如果先安装了CUDA9，之后想升级Pytorch、TF，也可以升级对应的CUDA版本.</strong></p>
 </blockquote>
 <h4 id="Python-3-6"><a href="#Python-3-6" class="headerlink" title="Python 3.6"></a>Python 3.6</h4><p>首先安装 Python 3.6，这里使用 Anaconda 3 来安装，下载地址：<a href="https://www.anaconda.com/download/#linux，点击" target="_blank" rel="noopener">https://www.anaconda.com/download/#linux，点击</a> Download 按钮下载即可，这里下载的是 Anaconda 3-5.1 版本，如果下载速度过慢,强烈建议选择使用<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/" target="_blank" rel="noopener">清华镜像</a> 。</p>
 <p>下载下来之后目录下会出现一个 Anaconda3-5.1.0-Linux-x86_64.sh 文件，然后直接执行即可安装：</p>
@@ -1169,7 +1173,7 @@ torch<span class="token punctuation">.</span>version<span class="token punctuati
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">23.5k</span>
+                <span class="white-color">23.9k</span>
             
 
             

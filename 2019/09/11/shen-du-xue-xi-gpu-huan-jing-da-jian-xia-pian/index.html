@@ -433,14 +433,14 @@ Ubuntu16+RTX2080Ti+CUDA10.0+Anaconda3+Python3.6+Tensorflow1.13.1+Pytorch1.3.0
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5k
+                        5.3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        20 分
+                        21 分
                     </div>
                     
                 
@@ -467,6 +467,9 @@ Anaconda: 3
 python3.6
 CUDA: 10.0
 cuDNN: 7.4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><strong>值得注意：如果安装了CUDA10.0，GPU版本Pytorch 最低只能安装1.2.0这个版本，TF也有相应的版本限制，请参考文末链接查看，请考虑后再决定安装CUDA版本，如果先安装了CUDA10.0，而之后想使用低版本的Pytorch、TF，您可能需要降低CUDA版本至9.0，可考虑深度学习 环境配置（Tensorflow,Pytorch）多版本CUDA共存，请自行百度。</strong></p>
+</blockquote>
 <h4 id="1-安装Linux系统"><a href="#1-安装Linux系统" class="headerlink" title="1.安装Linux系统"></a>1.安装Linux系统</h4><p>需要从网上下载ubuntu系统，并制作安装U盘。</p>
 <ul>
 <li>准备工作。制作Ubuntu系统启动U盘，可参考<a href="https://blog.csdn.net/fesdgasdgasdg/article/details/54183577" target="_blank" rel="noopener">链接</a></li>
@@ -611,7 +614,7 @@ Installing the CUDA Toolkit <span class="token keyword">in</span> /usr/local/cud
 <p>安装完成之后，可以配置他们的环境变量，打开.bashrc 文件：</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> gedit ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>打开文件后将下面代码加入文件最后，cuda位置，要根据自己cuda版本安装路径:</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">export</span> CUDA_HOME<span class="token operator">=</span>/usr/local/cuda-10.0
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">export</span> CUDA_HOME<span class="token operator">=</span>/usr/local/cuda
 <span class="token function">export</span> LD_LIBRARY_PATH<span class="token operator">=</span><span class="token variable">${CUDA_HOME}</span>/lib64:<span class="token variable">${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}</span><span class="token punctuation">}</span>
 <span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">${CUDA_HOME}</span>/bin:<span class="token variable">${PATH}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>保存并关闭，命令行输入下面命令,使配置生效：</p>
@@ -685,7 +688,7 @@ Enter <span class="token comment" spellcheck="true"># 回车</span>
 gedit .bashrc
 <span class="token comment" spellcheck="true"># 在文件末尾添加环境变量</span>
 <span class="token function">export</span> PATH<span class="token operator">=</span>/usr/local/anaconda3/bin<span class="token variable">${PATH:+:${PATH}</span><span class="token punctuation">}</span>
-<span class="token function">export</span> CUDA_HOME<span class="token operator">=</span>/usr/local/cuda-10.0
+<span class="token function">export</span> CUDA_HOME<span class="token operator">=</span>/usr/local/cuda
 <span class="token function">export</span> LD_LIBRARY_PATH<span class="token operator">=</span><span class="token variable">${CUDA_HOME}</span>/lib64:<span class="token variable">${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}</span><span class="token punctuation">}</span>
 <span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">${CUDA_HOME}</span>/bin:<span class="token variable">${PATH}</span>
 <span class="token comment" spellcheck="true"># 保存退出</span>
@@ -698,7 +701,7 @@ Enter <span class="token comment" spellcheck="true"># 回车</span>
 gedit .bashrc
 <span class="token comment" spellcheck="true"># 在文件末尾添加环境变量</span>
 <span class="token function">export</span> PATH<span class="token operator">=</span>/usr/local/anaconda3/bin<span class="token variable">${PATH:+:${PATH}</span><span class="token punctuation">}</span>
-<span class="token function">export</span> CUDA_HOME<span class="token operator">=</span>/usr/local/cuda-10.0
+<span class="token function">export</span> CUDA_HOME<span class="token operator">=</span>/usr/local/cuda
 <span class="token function">export</span> LD_LIBRARY_PATH<span class="token operator">=</span><span class="token variable">${CUDA_HOME}</span>/lib64:<span class="token variable">${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}</span><span class="token punctuation">}</span>
 <span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">${CUDA_HOME}</span>/bin:<span class="token variable">${PATH}</span>
 <span class="token comment" spellcheck="true"># 保存退出</span>
@@ -739,7 +742,7 @@ torchvision 0.3.0 has requirement torch<span class="token operator">>=</span>1.1
 <p>到官网下载torch1.1：<a href="https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl" target="_blank" rel="noopener">https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl</a> ，将本地文件上传到服务器指定位置，路径换到压缩包所在位置，在控制台输入指令：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> torch-1.1.0-cp36-cp36m-linux_x86_64.whl
 pip3 <span class="token function">install</span> torchvision<span class="token operator">==</span>0.3.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><strong>方案三：</strong> <strong>以上两种方案纯属呵呵</strong>🙂，强烈建议使用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener"><strong>国内pypi源加速</strong></a> , 直接安装pytorch最新版本，最新版本做了诸多优化！通过<strong>pypi镜像安装</strong>速度超快啊  ★★★★★</p>
+<p><strong>方案三：</strong> <strong>以上两种方案纯属呵呵</strong>🙂，强烈建议使用 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener"><strong>国内pypi源加速</strong></a> , 直接安装pytorch最新版本，最新版本做了诸多优化！通过<strong>pypi镜像安装</strong>速度超快啊  ★★★★★ 👍👍👍</p>
 <pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> torch torchvision -i https://pypi.tuna.tsinghua.edu.cn/simple<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这样就安装好啦，然后测试一下, 会输出<code>torch版本1.3.0，torchvision版本0.4.1</code>：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">python
@@ -748,7 +751,28 @@ torch.__version__
 torchvision.__version__
 torch.__path__
 torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>以上便是 <code>Ubuntu 16.04 + RTX 2080 Ti + Python 3.6 + CUDA 10.0 + cuDNN 7.4 + TensorFlow 1.13.1 + Pytorch 1.3.0</code>等 完整环境配置过程。</p>
+<p><strong>GPU 测试失败原因</strong></p>
+<p> 按照以上教程走完安装过程测试，出现如下情况 </p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> python
+<span class="token operator">>></span><span class="token operator">></span> <span class="token function">import</span> torch
+<span class="token operator">>></span><span class="token operator">></span> torch.cuda.is_available<span class="token punctuation">(</span><span class="token punctuation">)</span>
+False<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>找到原因：</strong></p>
+<p>显卡驱动太老，解决办法：替换原有驱动。查看<strong>驱动</strong>对应的<strong>cuda的型号</strong> <code>nvcc --version</code></p>
+<pre class="line-numbers language-text"><code class="language-text">参考链接：
+nvidia与cuda需要满足关系：
+
+https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html
+
+cuda与cudnn需要满足关系：
+
+https://developer.nvidia.com/rdp/cudnn-archive<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="查看torch的对应cuda的版本"><a href="#查看torch的对应cuda的版本" class="headerlink" title="查看torch的对应cuda的版本"></a>查看torch的对应cuda的版本</h5><pre class="line-numbers language-bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> python
+<span class="token operator">>></span><span class="token operator">></span> <span class="token function">import</span> torch
+<span class="token operator">>></span><span class="token operator">></span> print<span class="token punctuation">(</span>torch.version.cuda<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><strong>注意：</strong> 在<strong>CUDA10.0</strong> 安装了 torch版本1.1.0和torchvision版本0.3.0，当你运行程序<strong>很可能会报错</strong>:</p>
+<pre class="line-numbers language-bash"><code class="language-bash">RuntimeError: cuda runtime error <span class="token punctuation">(</span>11<span class="token punctuation">)</span> <span class="token keyword">:</span> invalid argument at /pytorch/aten/src/THC/THCGeneral.cpp:383<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="解决方法：升级torch版本到1-1-0以上即可解决！！！"><a href="#解决方法：升级torch版本到1-1-0以上即可解决！！！" class="headerlink" title="解决方法：升级torch版本到1.1.0以上即可解决！！！"></a>解决方法：升级torch版本到1.1.0以上即可解决！！！</h5><p>以上便是 <code>Ubuntu 16.04 + RTX 2080 Ti + Python 3.6 + CUDA 10.0 + cuDNN 7.4 + TensorFlow 1.13.1 + Pytorch 1.3.0</code>等 完整环境配置过程。</p>
 <h4 id="8-配置-ssh-远程连接"><a href="#8-配置-ssh-远程连接" class="headerlink" title="8.配置 ssh 远程连接"></a>8.配置 ssh 远程连接</h4><p>1）安装 open-ssh</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">apt-get</span> <span class="token function">install</span> openssh-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>2）修改权限，允许 ssh 登录 root</p>
@@ -1259,7 +1283,7 @@ torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></s
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">23.5k</span>
+                <span class="white-color">23.9k</span>
             
 
             
