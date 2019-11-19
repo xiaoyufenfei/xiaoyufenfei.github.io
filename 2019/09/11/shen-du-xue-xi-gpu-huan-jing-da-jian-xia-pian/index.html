@@ -468,7 +468,7 @@ python3.6
 CUDA: 10.0
 cuDNN: 7.4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p><strong>值得注意：如果安装了CUDA10.0，GPU版本Pytorch 最低只能安装1.2.0这个版本，TF也有相应的版本限制，请参考文末链接查看，请考虑后再决定安装CUDA版本，如果先安装了CUDA10.0，而之后想使用低版本的Pytorch、TF，您可能需要降低CUDA版本至9.0，可考虑深度学习 环境配置（Tensorflow,Pytorch）多版本CUDA共存，请自行百度。</strong></p>
+<p><strong>值得注意：如果您在RTX2080Ti环境下安装了CUDA10.0，GPU版Pytorch 最低只能安装1.2.0这个版本，TF也有相应的版本限制，请参考文末链接查看，考虑后再决定安装CUDA版本。如果先安装了CUDA10.0及10.0以上版本，而之后想使用低版本的Pytorch、TF，您可能需要降低CUDA至9.2版本✅</strong>，<strong>可考虑深度学习 环境配置（Tensorflow,Pytorch）多版本CUDA共存，请自行百度。</strong></p>
 </blockquote>
 <h4 id="1-安装Linux系统"><a href="#1-安装Linux系统" class="headerlink" title="1.安装Linux系统"></a>1.安装Linux系统</h4><p>需要从网上下载ubuntu系统，并制作安装U盘。</p>
 <ul>
@@ -567,7 +567,7 @@ Compute M：compute mode，计算模式。
 <p>  <strong>利用命令：nvidia-smi -L</strong> ： 用于列出所有可用的 NVIDIA 设备信息 </p>
 <p><img src="/2019/09/11/shen-du-xue-xi-gpu-huan-jing-da-jian-xia-pian/NVIDIA_SMI_L.PNG" alt></p>
 <h4 id="3-安装CUDA10-0"><a href="#3-安装CUDA10-0" class="headerlink" title="3.安装CUDA10.0"></a>3.安装CUDA10.0</h4><p>1.卸载旧的CUDA</p>
-<p>这是因为如果您的显卡RTX2080，安装了CUDA 8.0 和 CUDNN 7.0.5或者CUDA9.0不能够正常使用，需要安装CUDA 10.0 和 CUDNN 7.4.2，所以要先卸载原来的CUDA。注意以下的命令都是在root用户下操作的。</p>
+<p>这是因为如果您的显卡RTX2080，安装了CUDA 8.0 和 CUDNN 7.0.5或者CUDA9.0不能够正常使用，需要安装<strong>CUDA9.2</strong>或<strong>CUDA 10.0</strong> 和 cuDNN 7.4.2，所以要先卸载原来旧的CUDA。<strong>注意以下的命令都是在root用户下操作的。</strong></p>
 <p>卸载CUDA很简单，主要执行的是CUDA自带的卸载脚本，请根据自己的cuda版本找到卸载脚本：</p>
 <p>如果之前安装了CUDA 9.0在 /usr/local/cuda-9.0/bin 目录下有一个 uninstall_cuda*.pl 文件，CUDA8卸载同理，可以直接运行卸载，命令如下：</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> /usr/local/cuda-9.0/bin/uninstall_cuda_9.0.pl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -576,7 +576,7 @@ Compute M：compute mode，计算模式。
 <p>这样即可将 CUDA 全部卸载。</p>
 <p>2.安装CUDA</p>
 <p>安装的CUDA10.0和CUDNN7.4.2版本：</p>
-<p>接下来的安装步骤都是在<strong>root用户</strong>下操作的。</p>
+<p><strong>接下来的安装步骤都是在root用户下操作的</strong>。</p>
 <ul>
 <li>下载和安装CUDA</li>
 </ul>
