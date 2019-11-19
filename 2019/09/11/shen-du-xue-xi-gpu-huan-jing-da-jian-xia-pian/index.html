@@ -433,14 +433,14 @@ Ubuntu16+RTX2080Ti+CUDA10.0+Anaconda3+Python3.6+Tensorflow1.13.1+Pytorch1.3.0
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.3k
+                        5.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        21 分
+                        22 分
                     </div>
                     
                 
@@ -727,11 +727,10 @@ tf<span class="token punctuation">.</span>__path__<span aria-hidden="true" class
 <pre class="line-numbers language-bash"><code class="language-bash">FutureWarning: Conversion of the second argument of issubdtype from <span class="token variable"><span class="token variable">`</span>float<span class="token variable">`</span></span> to <span class="token variable"><span class="token variable">`</span>np.floating<span class="token variable">`</span></span> is deprecated. In future, it will be treated as <span class="token variable"><span class="token variable">`</span>np.float64 <span class="token operator">==</span> np.dtype<span class="token punctuation">(</span>float<span class="token punctuation">)</span>.type<span class="token variable">`</span></span><span class="token keyword">.</span>
   from ._conv <span class="token function">import</span> register_converters as _register_converters<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>报错原因： 因为你所使用的h5py库，有一部分函数与numpy1.14有冲突 </p>
-<p>解决方法： <strong>对h5py库进行升级</strong> </p>
+<p>解决方法： <strong>对h5py库进行升级</strong> ✅</p>
 <pre class="line-numbers language-bash"><code class="language-bash">pip3 <span class="token function">install</span> h5py<span class="token operator">==</span>2.8.0rc1 -i https://pypi.tuna.tsinghua.edu.cn/simple<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>如果您的tensorflow安装后不能使用，请参照官方安装手册：<strong><a href="https://tensorflow.google.cn/install/source" target="_blank" rel="noopener">tensorflow版本和CUDA、cuDNN版本的兼容问题</a></strong>， 也可参考本博文下方链接。</p>
-<h4 id="7-Pytorch-1-3-0"><a href="#7-Pytorch-1-3-0" class="headerlink" title="7.Pytorch 1.3.0"></a>7.Pytorch 1.3.0</h4><p>安装过程中注意：torch和torchvision版本必须<strong>相匹配</strong></p>
-<pre class="line-numbers language-bash"><code class="language-bash">如不匹配，可能报错：
+<h4 id="7-Pytorch-1-3-0"><a href="#7-Pytorch-1-3-0" class="headerlink" title="7.Pytorch 1.3.0"></a>7.Pytorch 1.3.0</h4><h5 id="7-1-安装过程中注意：torch和torchvision版本必须相匹配"><a href="#7-1-安装过程中注意：torch和torchvision版本必须相匹配" class="headerlink" title="7.1 安装过程中注意：torch和torchvision版本必须相匹配"></a>7.1 <strong>安装过程中注意：torch和torchvision版本必须相匹配</strong></h5><pre class="line-numbers language-bash"><code class="language-bash">如不匹配，可能报错：
 torchvision 0.3.0 has requirement torch<span class="token operator">>=</span>1.1.0, but you'll have torch 1.0.0 <span class="token function">which</span> is incompatible.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>RTX 2080Ti，CUDA安装版本10及以上，</p>
 <p><strong>方案一：</strong> <strong>通过pytorch官发链接pip装</strong>，命令如下：</p>
@@ -751,8 +750,7 @@ torch.__version__
 torchvision.__version__
 torch.__path__
 torchvision.__path__<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>GPU 测试失败原因</strong></p>
-<p> 按照以上教程走完安装过程测试，出现如下情况 </p>
+<h5 id="7-2-GPU-测试失败原因"><a href="#7-2-GPU-测试失败原因" class="headerlink" title="7.2 GPU 测试失败原因"></a>7.2 <strong>GPU 测试失败原因</strong></h5><p> 按照以上教程走完安装过程测试，出现如下情况 </p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> python
 <span class="token operator">>></span><span class="token operator">></span> <span class="token function">import</span> torch
 <span class="token operator">>></span><span class="token operator">></span> torch.cuda.is_available<span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -772,7 +770,12 @@ https://developer.nvidia.com/rdp/cudnn-archive<span aria-hidden="true" class="li
 <span class="token operator">>></span><span class="token operator">></span> print<span class="token punctuation">(</span>torch.version.cuda<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><strong>注意：</strong> 在<strong>CUDA10.0</strong> 安装了 torch版本1.1.0和torchvision版本0.3.0，当你运行程序<strong>很可能会报错</strong>:</p>
 <pre class="line-numbers language-bash"><code class="language-bash">RuntimeError: cuda runtime error <span class="token punctuation">(</span>11<span class="token punctuation">)</span> <span class="token keyword">:</span> invalid argument at /pytorch/aten/src/THC/THCGeneral.cpp:383<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h5 id="解决方法：升级torch版本到1-1-0以上即可解决！！！"><a href="#解决方法：升级torch版本到1-1-0以上即可解决！！！" class="headerlink" title="解决方法：升级torch版本到1.1.0以上即可解决！！！"></a>解决方法：升级torch版本到1.1.0以上即可解决！！！</h5><p>以上便是 <code>Ubuntu 16.04 + RTX 2080 Ti + Python 3.6 + CUDA 10.0 + cuDNN 7.4 + TensorFlow 1.13.1 + Pytorch 1.3.0</code>等 完整环境配置过程。</p>
+<h5 id="解决方法：升级torch版本到1-1-0以上即可解决！！！"><a href="#解决方法：升级torch版本到1-1-0以上即可解决！！！" class="headerlink" title="解决方法：升级torch版本到1.1.0以上即可解决！！！"></a>解决方法：升级torch版本到1.1.0以上即可解决！！！</h5><h5 id="7-3-关于使用PyTorch设置多线程（threads）进行数据读取而导致GPU显存始终不释放的问题"><a href="#7-3-关于使用PyTorch设置多线程（threads）进行数据读取而导致GPU显存始终不释放的问题" class="headerlink" title="7.3 关于使用PyTorch设置多线程（threads）进行数据读取而导致GPU显存始终不释放的问题"></a>7.3 关于使用PyTorch设置多线程（threads）进行数据读取而导致GPU显存始终不释放的问题</h5><p>使用PyTorch设置<strong>多线程</strong>（threads）进行数据读取（DataLoader），其实是假的多线程，他是开了N个子进程（PID都连着）进行模拟多线程工作，所以你的程序跑完或者中途kill掉主进程的话，子进程的GPU显存并不会被释放，需要手动一个一个kill才行，具体方法描述如下：</p>
+<p>1.先关闭ssh（或者shell）窗口，退出重新登录</p>
+<p>2.查看运行在gpu上的所有程序：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">fuser</span> -v /dev/nvidia*<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>3.kill掉所有（连号的）僵尸进程</p>
+<p>以上便是 <code>Ubuntu 16.04 + RTX 2080 Ti + Python 3.6 + CUDA 10.0 + cuDNN 7.4 + TensorFlow 1.13.1 + Pytorch 1.3.0</code>等 完整环境配置过程。</p>
 <h4 id="8-配置-ssh-远程连接"><a href="#8-配置-ssh-远程连接" class="headerlink" title="8.配置 ssh 远程连接"></a>8.配置 ssh 远程连接</h4><p>1）安装 open-ssh</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">apt-get</span> <span class="token function">install</span> openssh-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>2）修改权限，允许 ssh 登录 root</p>
@@ -1283,7 +1286,7 @@ https://developer.nvidia.com/rdp/cudnn-archive<span aria-hidden="true" class="li
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">24.3k</span>
+                <span class="white-color">24.5k</span>
             
 
             
