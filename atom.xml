@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xiaoyufenfei.github.io/"/>
-  <updated>2019-11-09T16:19:53.793Z</updated>
+  <updated>2020-09-06T03:39:06.804Z</updated>
   <id>http://xiaoyufenfei.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Jason Mraz经典单曲《I&#39;m Yours》</title>
+    <link href="http://xiaoyufenfei.github.io/2020/09/06/jason-mraz-jing-dian-dan-qu-i-m-yours/"/>
+    <id>http://xiaoyufenfei.github.io/2020/09/06/jason-mraz-jing-dian-dan-qu-i-m-yours/</id>
+    <published>2020-09-06T03:00:00.000Z</published>
+    <updated>2020-09-06T03:39:06.804Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;民谣男巫Jason Mraz经典单曲《I’m Yours》最美现场版。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="音乐人生" scheme="http://xiaoyufenfei.github.io/categories/%E9%9F%B3%E4%B9%90%E4%BA%BA%E7%94%9F/"/>
+    
+    
+      <category term="音乐人生" scheme="http://xiaoyufenfei.github.io/tags/%E9%9F%B3%E4%B9%90%E4%BA%BA%E7%94%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>外汇兑换小知识</title>
@@ -149,7 +169,7 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;SENet&quot;&gt;&lt;a href=&quot;#SENet&quot; class=&quot;headerlink&quot; title=&quot;SENet&quot;&gt;&lt;/a&gt;SENet&lt;/h2&gt;&lt;p&gt;arXiv-Link： &lt;a href=&quot;https://arxiv.org/abs/1709.01507&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Squeeze-and-Excitation Networks&lt;/a&gt;&lt;br&gt;Jie Hu, Li Shen, Gang Sun&lt;/p&gt;
+      &lt;h2 id=&quot;SENet&quot;&gt;&lt;a href=&quot;#SENet&quot; class=&quot;headerlink&quot; title=&quot;SENet&quot;&gt;&lt;/a&gt;SENet&lt;/h2&gt;&lt;p&gt;arXiv-Link： &lt;a href=&quot;https://arxiv.org/abs/1709.01507&quot;&gt;Squeeze-and-Excitation Networks&lt;/a&gt;&lt;br&gt;Jie Hu, Li Shen, Gang Sun&lt;/p&gt;
     
     </summary>
     
@@ -187,27 +207,27 @@
     <link href="http://xiaoyufenfei.github.io/2019/08/27/ke-yan-gong-ju/"/>
     <id>http://xiaoyufenfei.github.io/2019/08/27/ke-yan-gong-ju/</id>
     <published>2019-08-27T01:56:12.000Z</published>
-    <updated>2020-05-20T00:14:16.562Z</updated>
+    <updated>2020-06-26T03:20:59.179Z</updated>
     
     <summary type="html">
     
       &lt;h3 id=&quot;Some-tips-for-research-and-coding&quot;&gt;&lt;a href=&quot;#Some-tips-for-research-and-coding&quot; class=&quot;headerlink&quot; title=&quot;Some tips for research and coding&quot;&gt;&lt;/a&gt;Some tips for research and coding&lt;/h3&gt;&lt;p&gt;本博文正在丰富内容～～～💪💪💪&lt;/p&gt;
 &lt;h4 id=&quot;1-科研起步&quot;&gt;&lt;a href=&quot;#1-科研起步&quot; class=&quot;headerlink&quot; title=&quot;1. 科研起步&quot;&gt;&lt;/a&gt;1. 科研起步&lt;/h4&gt;&lt;h5 id=&quot;必读文章&quot;&gt;&lt;a href=&quot;#必读文章&quot; class=&quot;headerlink&quot; title=&quot;必读文章&quot;&gt;&lt;/a&gt;必读文章&lt;/h5&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;1.&lt;a href=&quot;https://zhuanlan.zhihu.com/p/82579410&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CCF优博、南大蒋炎岩：我的博士五年&lt;/a&gt; 重点&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;1.&lt;a href=&quot;https://zhuanlan.zhihu.com/p/82579410&quot;&gt;CCF优博、南大蒋炎岩：我的博士五年&lt;/a&gt; 重点&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;2.&lt;a href=&quot;http://karpathy.github.io/2016/09/07/phd/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Karpathy-博士经验&lt;/a&gt; &lt;a href=&quot;https://m.sohu.com/a/125259752_465975/?pvid=000115_3w_a&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;(翻译)&lt;/a&gt; &lt;/p&gt;
+&lt;li&gt;&lt;p&gt;2.&lt;a href=&quot;http://karpathy.github.io/2016/09/07/phd/&quot;&gt;Karpathy-博士经验&lt;/a&gt; &lt;a href=&quot;https://m.sohu.com/a/125259752_465975/?pvid=000115_3w_a&quot;&gt;(翻译)&lt;/a&gt; &lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;3.&lt;a href=&quot;https://zhuanlan.zhihu.com/p/74779853&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;陈天奇-科研十年&lt;/a&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;3.&lt;a href=&quot;https://zhuanlan.zhihu.com/p/74779853&quot;&gt;陈天奇-科研十年&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;4.&lt;a href=&quot;https://mp.weixin.qq.com/s/e78zRIgdEtGLKiqYcRJLHQ&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;王一-科研idea&lt;/a&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;4.&lt;a href=&quot;https://mp.weixin.qq.com/s/e78zRIgdEtGLKiqYcRJLHQ&quot;&gt;王一-科研idea&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;5.&lt;a href=&quot;https://zhuanlan.zhihu.com/p/50597445&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;王赟-我的八年博士生涯&lt;/a&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;5.&lt;a href=&quot;https://zhuanlan.zhihu.com/p/50597445&quot;&gt;王赟-我的八年博士生涯&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;6.&lt;a href=&quot;https://zhuanlan.zhihu.com/p/25099638&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;李沐-博士这五年&lt;/a&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;6.&lt;a href=&quot;https://zhuanlan.zhihu.com/p/25099638&quot;&gt;李沐-博士这五年&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;7.&lt;a href=&quot;https://mp.weixin.qq.com/s/j8EuhusTNlE60m8IC4ftGA&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;毕业撒花&lt;/a&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;7.&lt;a href=&quot;https://mp.weixin.qq.com/s/j8EuhusTNlE60m8IC4ftGA&quot;&gt;毕业撒花&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;8.&lt;a href=&quot;https://www.doc.ic.ac.uk/research/phd/phdmatters/handbook_PhD_2018.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;帝国理工-博士手册（Doctoral Milestones）&lt;/a&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;8.&lt;a href=&quot;https://www.doc.ic.ac.uk/research/phd/phdmatters/handbook_PhD_2018.pdf&quot;&gt;帝国理工-博士手册（Doctoral Milestones）&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
     
@@ -225,7 +245,7 @@
     <link href="http://xiaoyufenfei.github.io/2019/08/26/shen-du-xue-xi-gpu-huan-jing-da-jian-shang-pian/"/>
     <id>http://xiaoyufenfei.github.io/2019/08/26/shen-du-xue-xi-gpu-huan-jing-da-jian-shang-pian/</id>
     <published>2019-08-26T00:29:50.000Z</published>
-    <updated>2019-11-18T08:52:24.828Z</updated>
+    <updated>2020-09-06T03:02:55.425Z</updated>
     
     <summary type="html">
     
@@ -254,7 +274,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
     
     </summary>
     
